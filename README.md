@@ -6,3 +6,4 @@ node.js
 express
 * eslint
 * nodemon
+* body-parser
