@@ -7,3 +7,4 @@ express
 * eslint
 * nodemon
 * body-parser
+* prettier
