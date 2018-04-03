@@ -8,3 +8,5 @@ express
 * nodemon
 * body-parser
 * prettier
+* cross-env
+* mongoose
