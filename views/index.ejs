@@ -3,14 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Medmanis</title>
 </head>
 
 <body>
-    <a href="/hello">
-        <%= data%>
+    <b>Welcome!</b>
+    <br>
+    <a href="/register">
+        Регистрация
     </a>
-    <br> Patients Management Information System is under construction.
+    <br> Patients Management Information System is under construction. <br>
+    <ul>
+    <% users.forEach(function(user){ %>
+      <li>
+        <b>
+          Логин: <%= user.login %>
+        </b>
+        <br>
+        Пароль: <%= user.password %>
+      </li>
+      <br>
+      <% }); %>
+  </ul>
 </body>
 
 </html>

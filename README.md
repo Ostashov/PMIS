@@ -13,3 +13,4 @@ express
 
 **Resources**
 * https://www.youtube.com/watch?v=_I9vLOAsFew - MongoDB basics
+* https://github.com/prettier/prettier-vscode/issues/182 - ognore HTML
