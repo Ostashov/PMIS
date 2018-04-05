@@ -6,8 +6,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const data =
-  "Welcome! Patients Management Information System is under construction.";
+const data = "Welcome!";
 
 app.get("/", (req, res) => res.render("index", { data: data }));
 app.get("/hello", (req, res) => res.render("hello")); // res.send("Hello World! What\'s up!"))

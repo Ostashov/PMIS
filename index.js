@@ -13,7 +13,3 @@ database()
     console.error("Unable to connect to database");
     process.exit(1);
   });
-
-// app.listen(config.PORT, () =>
-//   console.log(`Example app listening on port ${config.PORT}!`)
-// );

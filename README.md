@@ -10,3 +10,6 @@ express
 * prettier
 * cross-env
 * mongoose
+
+**Resources**
+* https://www.youtube.com/watch?v=_I9vLOAsFew - MongoDB basics
