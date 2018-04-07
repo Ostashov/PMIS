@@ -16,7 +16,22 @@ app.get("/", (req, res) => {
     .catch(err => {
       res.status(200).json({ err: err });
     });
+  Specialist.aggregate([
+    {
+      $lookup: {
+        from: "User",
+        localfield: "_id",
+        foreignfield: "userID",
+        as: "doctor"
+      }
+    }
+  ]);
+  // .exec(function(err, doctor) {
+  //   console.log(doctor);
+  //   console.log(err);
+  // });
 });
+
 app.get("/register", (req, res) => res.render("register")); // res.send("Hello World! What\'s up!"))
 app.post("/register", (req, res) => {
   const { login, password, firstname, lastname } = req.body;
