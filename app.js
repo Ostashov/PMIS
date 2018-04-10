@@ -15,9 +15,10 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var pool = new pg.Pool(pg_connect);
+// var pool = new pg.Pool(pg_connect);
 
 app.get("/", (req, res) => {
+  var pool = new pg.Pool(pg_connect);
   const results = [];
   pool.connect(function(err, client, done) {
     // Handle connection errors
