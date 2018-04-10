@@ -9,8 +9,10 @@ express
 * body-parser
 * prettier
 * cross-env
-* mongoose
+* node-postgre (npm install pg)
+
+PostgreSQL is used and storage is located on elephantsql.com
 
 **Resources**
 * https://www.youtube.com/watch?v=_I9vLOAsFew - MongoDB basics
-* https://github.com/prettier/prettier-vscode/issues/182 - ognore HTML
+* https://github.com/prettier/prettier-vscode/issues/182 - ignore HTML
