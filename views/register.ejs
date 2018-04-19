@@ -2,16 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Medmanis | Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
 </head>
-<body>
-    <a href="javascript:history.back()">Назад</a>
-    <form method="POST">
-        Логин: <input type="text" name="login"><br>
-        Пароль: <input type="text" name="password"><br>
-        Имя: <input type="text" name="firstname"><br>
-        Фамилия: <input type="text" name="lastname"><br>
-        <button type="submit">Зарегистрироваться</button>
+<body class="text-center">
+    <form method="POST" class="form-signup">
+        <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, зарегистрируйтесь</h1>
+        <label for="inputEmail" class="sr-only">E-mail</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" name="email" required autofocus>
+        <label for="inputPassword" class="sr-only">Пароль</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password" required>
+        <label for="inputFirstname" class="sr-only">Имя</label>
+        <input type="text" id="inputFirstname" class="form-control" placeholder="Имя" name="firstname" required>
+        <label for="inputLastname" class="sr-only">Фамилия</label>
+        <input type="text" id="inputLastname" class="form-control" placeholder="Фамилия" name="lastname" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        <a href="javascript:history.back()" class="form-text text-muted">Назад</a>
     </form>
 </body>
 </html>

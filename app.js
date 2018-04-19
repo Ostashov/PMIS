@@ -14,6 +14,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
 
 // var pool = new pg.Pool(pg_connect);
 
@@ -27,15 +28,16 @@ app.get("/", (req, res) => {
       done();
       return res.status(500).json({ success: false, data: err });
     } else {
-      client
-        .query("SELECT * FROM users")
-        .then(result => {
-          result.rows.forEach(function(item) {
-            results.push(item);
-          });
-          res.render("index", { users: results });
-        })
-        .catch(err => console.log(err));
+      res.render("index", { users: results });
+      // client
+      //   .query("SELECT * FROM users")
+      //   .then(result => {
+      //     result.rows.forEach(function(item) {
+      //       results.push(item);
+      //     });
+      //     res.render("index", { users: results });
+      //   })
+      //   .catch(err => console.log(err));
       done();
     }
   });
@@ -43,10 +45,9 @@ app.get("/", (req, res) => {
 
 app.get("/register", (req, res) => res.render("register")); // res.send("Hello World! What\'s up!"))
 app.post("/register", (req, res) => {
-  const { login, password, firstname, lastname } = req.body;
   console.log(req.body);
 
-  res.redirect("/");
+  res.redirect("/register");
 });
 
 module.exports = app;
