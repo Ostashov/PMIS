@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env PORT=3000 node index.js",
+    "start": "node index.js",
     "dev": "cross-env PORT=3000 nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "crypto-js": "^3.1.9-1",
     "ejs": "^2.5.7",
     "express": "^4.16.3",
     "pg": "^7.4.1"
