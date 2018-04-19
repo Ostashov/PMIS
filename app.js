@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 app.get("/register", (req, res) => res.render("register")); // res.send("Hello World! What\'s up!"))
 app.post("/register", (req, res) => {
   const userInsert =
-    "INSERT INTO users(email, password, register_dttm, usertype_id, deleted_flag) VALUES ($1, $2, $3, $4, $5);";
+    "INSERT INTO users(email, password, register_dttm, usertype_id, deleted_flag) VALUES ($1, $2, $3, $4, $5) RETURNING id;";
   const userValues = [
     req.body.email,
     CryptoJS.SHA256(req.body.password).toString(CryptoJS.enc.Base64),
@@ -56,7 +56,9 @@ app.post("/register", (req, res) => {
     1,
     false
   ];
-  // console.log(userValues);
+  const specialistInsert =
+    "INSERT INTO specialists (user_id, firstname, lastname, deleted_flag) VALUES ($1, $2, $3, $4);";
+  var specialistValues = [0, req.body.firstname, req.body.lastname, false];
   var pool = new pg.Pool(pg_connect);
   pool.connect(function(err, client, done) {
     // Handle connection errors
@@ -68,7 +70,13 @@ app.post("/register", (req, res) => {
       client
         .query(userInsert, userValues)
         .then(result => {
-          console.log(result.rows[0]);
+          specialistValues[0] = result.rows[0].id;
+          client
+            .query(specialistInsert, specialistValues)
+            .then(result => {
+              console.log(result);
+            })
+            .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
       done();
