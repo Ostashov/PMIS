@@ -30,12 +30,14 @@ app.get("/", (req, res) => {
       return res.status(500).json({ success: false, data: err });
     } else {
       client
-        .query("SELECT * FROM users")
+        .query(
+          "select s.firstname, s.lastname, u.email from specialists s inner join users u on u.id = s.user_id;"
+        )
         .then(result => {
           result.rows.forEach(function(item) {
             results.push(item);
           });
-          console.log(results);
+          // console.log(results);
           res.render("index", { users: results });
         })
         .catch(err => console.log(err));

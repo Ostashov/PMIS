@@ -27,20 +27,19 @@
         <div class="box">box2</div>
       </div>
       <div class="content">
-        <b>Welcome!</b>
-        <br>
-        <a href="/register">
+        <a href="/register" class="btn btn-link" >
             Регистрация
+        </a>
+        <a href="/signin" class="btn btn-primary" >
+            Вход
         </a>
         <br> Patients Management Information System is under construction. <br>
         <ul>
         <% users.forEach(function(user){ %>
           <li>
-            <b>
-              Логин: <%= user.login %>
-            </b>
-            <br>
-            Пароль: <%= user.password %>
+            Имя: <%= user.firstname %> <br>
+            Фамилия: <%= user.lastname %> <br>
+            Email: <%= user.email %>
           </li>
           <br>
           <% }); %>
