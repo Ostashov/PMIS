@@ -1,6 +1,12 @@
-const app = require("./app");
-const database = require("./database");
-const config = require("./config");
+// Setup environment
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
+// Dependencies
+var config = require("./config/config");
+var express = require("./config/express");
+
+// Create server
+var app = express();
 
 const port = config.PORT;
 

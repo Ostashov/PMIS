@@ -89,5 +89,9 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/signin", (req, res) => res.render("signin"));
+app.post("/signin", (req, res) => {
+  res.render("signin");
+  console.log(req.body);
+});
 
 module.exports = app;
