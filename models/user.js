@@ -1,5 +1,5 @@
 var Promise = require("promise");
-var config = require("./../config/config");
+// var config = require("./../config/config");
 var db = require("./../config/database");
 const CryptoJS = require("crypto-js");
 
@@ -7,11 +7,12 @@ module.exports = {
   findAll: function() {
     return new Promise(function(resolve, reject) {
       db
-        .query("SELECT id, name, email FROM users", [])
+        .query("SELECT id, email FROM users", [])
         .then(function(results) {
           resolve(results.rows);
         })
         .catch(function(err) {
+          console.log(err);
           reject(err);
         });
     });

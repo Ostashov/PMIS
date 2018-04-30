@@ -1,5 +1,5 @@
-var Promise = require("promise");
-var config = require("./../config/config");
+// var Promise = require("promise");
+// var config = require("./../config/config");
 var User = require("./../models/user");
 
 module.exports = {
@@ -99,6 +99,7 @@ module.exports = {
   listUsers: function(req, res) {
     User.findAll()
       .then(function(result) {
+        res.render("index", { users: result });
         return res.status(200).json(result);
       })
       .catch(function(err) {

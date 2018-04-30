@@ -1,10 +1,11 @@
 var router = require("express").Router();
+var usersController = require("./../controllers/users.controller");
 
 // TODO
 // Browser client route here
 router.get("/", function(req, res) {
-  const results = [];
-  res.render("index", { users: results });
+  var users = usersController.listUsers(req, res);
+  // res.render("index", { users: users });
 });
 
 // Browser error routes

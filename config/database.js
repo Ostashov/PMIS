@@ -1,17 +1,25 @@
 var Promise = require("promise");
-var config = require("./config");
+var config = require("./../config");
 var pg = require("pg");
-var connectionString = config.DATABASE_URL;
+const pg_connect = {
+  user: config.user,
+  host: config.host,
+  database: config.database,
+  password: config.password,
+  port: config.port_pg
+};
 
 module.exports = {
   query: function(text, values) {
     return new Promise(function(resolve, reject) {
-      pg.connect(connectionString, function(err, client, done) {
+      var pool = new pg.Pool(pg_connect);
+      pool.connect(function(err, client, done) {
         client.query(text, values, function(err, result) {
           done();
           if (err) {
             handleErrorMessages(err)
               .then(function(message) {
+                console.log("Query error");
                 reject(message);
               })
               .catch(function() {
