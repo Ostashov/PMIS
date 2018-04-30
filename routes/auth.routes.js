@@ -17,7 +17,7 @@ router.post("/auth/authenticate", function(req, res) {
           { sub: result.id },
           config.SECRET,
           { expiresIn: config.JWT_EXPIRATION, issuer: "masterLord" },
-          function(token) {
+          function(err, token) {
             console.log("authenticated, token attached", token);
 
             res.redirect("../../");
