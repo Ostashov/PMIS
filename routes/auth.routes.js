@@ -1,7 +1,7 @@
 var router = require("express").Router();
 var jwt = require("jsonwebtoken");
 var User = require("./../models/user");
-var config = require("./../config/config");
+var config = require("../config");
 var usersController = require("./../controllers/users.controller");
 
 // Registration of new users via API
@@ -11,12 +11,16 @@ router.post("/auth/register", usersController.createUser);
 router.post("/auth/authenticate", function(req, res) {
   User.authenticate(req.body)
     .then(function(result) {
+      console.log(result);
       if (result.isAuthorized === true) {
         jwt.sign(
           { sub: result.id },
           config.SECRET,
           { expiresIn: config.JWT_EXPIRATION, issuer: "masterLord" },
           function(token) {
+            console.log("authenticated, token attached", token);
+
+            res.redirect("../../");
             return res.status(200).json({
               message: "authenticated, token attached",
               token: token
@@ -24,6 +28,7 @@ router.post("/auth/authenticate", function(req, res) {
           }
         );
       } else {
+        console.log("bad credentials");
         return res.status(401).json({
           message: "bad credentials"
         });
@@ -37,9 +42,10 @@ router.post("/auth/authenticate", function(req, res) {
 });
 
 // Any route past this point requires a valid auth token
-router.use(function(req, res, next) {
+router.use("*", function(req, res, next) {
+  console.log("req:", req);
   var token = req.body.token || req.query.token || req.headers["authorization"];
-
+  console.log("token", token);
   if (token) {
     jwt.verify(token, config.SECRET, function(err, decoded) {
       if (err) {
@@ -59,6 +65,7 @@ router.use(function(req, res, next) {
         });
     });
   } else {
+    console.log("failed authentication: no token provided.");
     return res.status(401).json({
       message: "failed authentication: no token provided."
     });

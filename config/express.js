@@ -19,7 +19,7 @@ var initApp = function() {
 
   app.set("view engine", "ejs");
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(express.static(__dirname + "/public"));
+  app.use(express.static("./public"));
 
   // Setup routes
   routes(app);

@@ -18,8 +18,20 @@ module.exports = {
       });
   },
 
-  changeName: function(req, res) {
-    User.updateName({ id: req.params.id, name: req.body.name })
+  changeFirstname: function(req, res) {
+    User.updateFirstname({ id: req.params.id, name: req.body.name })
+      .then(function(result) {
+        return res.status(200).json(result);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
+  },
+
+  changeLastname: function(req, res) {
+    User.updateLastname({ id: req.params.id, name: req.body.name })
       .then(function(result) {
         return res.status(200).json(result);
       })

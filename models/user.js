@@ -7,7 +7,7 @@ module.exports = {
   findAll: function() {
     return new Promise(function(resolve, reject) {
       db
-        .query("SELECT id, email FROM users", [])
+        .query("SELECT id, email, firstname, lastname FROM users", [])
         .then(function(results) {
           resolve(results.rows);
         })
@@ -47,6 +47,8 @@ module.exports = {
   },
 
   create: function(data) {
+    var usertype_id_default = 1;
+    // console.log(data);
     return new Promise(function(resolve, reject) {
       validateUserData(data)
         .then(function() {
@@ -54,8 +56,16 @@ module.exports = {
         })
         .then(function(hash) {
           return db.query(
-            "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) returning id",
-            [data.name, data.email, hash]
+            "INSERT INTO users (email, firstname, lastname, password, register_dttm, usertype_id, deleted_flag) VALUES ($1, $2, $3, $4, $5, $6, $7) returning id",
+            [
+              data.email,
+              data.firstname,
+              data.lastname,
+              hash,
+              new Date().toLocaleString(),
+              usertype_id_default,
+              false
+            ]
           );
         })
         .then(function(result) {
@@ -80,16 +90,36 @@ module.exports = {
     });
   },
 
-  updateName: function(data) {
+  updateFirstname: function(data) {
     return new Promise(function(resolve, reject) {
       if (!data.id || !data.name) {
         reject("error: id and/or name missing");
       } else {
         db
-          .query("UPDATE users SET name = $2 WHERE id = $1 returning name", [
-            data.id,
-            data.name
-          ])
+          .query(
+            "UPDATE users SET firstname = $2 WHERE id = $1 returning name",
+            [data.id, data.firstname]
+          )
+          .then(function(result) {
+            resolve(result.rows[0]);
+          })
+          .catch(function(err) {
+            reject(err);
+          });
+      }
+    });
+  },
+
+  updateLastname: function(data) {
+    return new Promise(function(resolve, reject) {
+      if (!data.id || !data.name) {
+        reject("error: id and/or name missing");
+      } else {
+        db
+          .query(
+            "UPDATE users SET lastname = $2 WHERE id = $1 returning name",
+            [data.id, data.lastname]
+          )
           .then(function(result) {
             resolve(result.rows[0]);
           })
@@ -165,7 +195,8 @@ module.exports = {
             );
           })
           .then(function(result) {
-            if (result.rows[0].login_attempts < 10) {
+            if (result.rows[0].login_attempts < 1000) {
+              // TODO decrease the number
               return result.rows[0];
             } else {
               reject(
@@ -235,6 +266,7 @@ function hashPassword(password) {
 function validateUserData(data) {
   return new Promise(function(resolve, reject) {
     if (!data.password || !data.email) {
+      // console.log("email and/or password missing");
       reject("email and/or password missing");
     } else {
       validatePassword(data.password, 6)
@@ -254,6 +286,7 @@ function validateUserData(data) {
 function validateEmail(email) {
   return new Promise(function(resolve, reject) {
     if (typeof email !== "string") {
+      // console.log("email must be a string");
       reject("email must be a string");
     } else {
       var re = new RegExp(
@@ -262,6 +295,7 @@ function validateEmail(email) {
       if (re.test(email)) {
         resolve();
       } else {
+        // console.log("provided email does not match proper email format");
         reject("provided email does not match proper email format");
       }
     }
@@ -273,6 +307,9 @@ function validatePassword(password, minCharacters) {
     if (typeof password !== "string") {
       reject("password must be a string");
     } else if (password.length < minCharacters) {
+      // console.log(
+      //   "password must be at least " + minCharacters + " characters long"
+      // );
       reject("password must be at least " + minCharacters + " characters long");
     } else {
       resolve();

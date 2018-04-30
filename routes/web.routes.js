@@ -4,8 +4,19 @@ var usersController = require("./../controllers/users.controller");
 // TODO
 // Browser client route here
 router.get("/", function(req, res) {
-  var users = usersController.listUsers(req, res);
-  // res.render("index", { users: users });
+  usersController.listUsers(req, res);
+});
+
+router.get("/register", (req, res) => res.render("register")); // res.send("Hello World! What\'s up!"))
+router.post("/register", (req, res) => {
+  usersController.createUser(req);
+  res.redirect("/");
+});
+
+router.get("/signin", (req, res) => res.render("signin"));
+router.post("/signin", (req, res) => {
+  res.render("signin");
+  console.log(req.body);
 });
 
 // Browser error routes

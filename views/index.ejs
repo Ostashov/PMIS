@@ -32,7 +32,9 @@
         <% users.forEach(function(user){ %>
           <li>
             ID: <%= user.id %> <br>
-            Email: <%= user.email %>
+            Email: <%= user.email %> <br>
+            Имя: <%= user.firstname %> <br>
+            Фамилия: <%= user.lastname %>
           </li>
           <br>
           <% }); %>
