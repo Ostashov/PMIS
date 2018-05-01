@@ -1,3 +1,25 @@
-header .menu {
+header {
+  min-height: 50px;
   margin-top: 10px;
+}
+
+header .menu {
+  float: right;
+  text-align: right;
+}
+
+header .logoBlock {
+  float: left;
+}
+
+header a.logo,
+header a.logo:hover,
+header a.logo:visited {
+  text-decoration: none;
+  color: #212529;
+}
+
+/**** VISIT ****/
+
+.searchPatientForm {
 }

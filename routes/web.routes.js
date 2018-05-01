@@ -1,5 +1,6 @@
 var router = require("express").Router();
 var usersController = require("./../controllers/users.controller");
+var documentsController = require("./../controllers/documents.controller");
 
 // TODO
 // Browser client route here
@@ -47,14 +48,30 @@ router.get("/visit", (req, res) => {
   if (!(req.session.userId || req.session.userLogin)) {
     res.redirect("/");
   } else {
+    const renderData = {};
     usersController
       .getUserById(req.session.userId)
       .then(function(result) {
         // console.log(result);
-        res.render("visit", { user: result });
+        renderData.user = result;
+        // res.render("visit", { user: result });
       })
       .catch(function(err) {
         console.log(err);
+      })
+      .done(function() {
+        documentsController
+          .listOfTypes()
+          .then(function(result) {
+            renderData.listOfDocumentTypes = result;
+          })
+          .catch(function(err) {
+            console.log(err);
+          })
+          .done(function() {
+            // console.log(renderData);
+            res.render("visit", renderData);
+          });
       });
   }
 });

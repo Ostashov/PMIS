@@ -13,13 +13,15 @@
 <body>
   <header class="header">
     <div class="container">
-      <a href="/" class="logo"></a>
+      <div class="logoBlock col-md-6">
+        <a href="/" class="logo h3">medmanis</a>
+      </div>
       <!--<% if (user.login) { %>
       <div class="user-info">
         Добро пожаловать, <b><%= user.login %></b>.
       </div>
       <% }%>-->
-      <div class="menu">
+      <div class="menu col-md-6">
         <% if (user.id) { %>
           Добро пожаловать, <b><%= user.email %></b>.
           <a href="/logout" class="btn btn-link" >Выход</a>
