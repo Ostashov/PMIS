@@ -19,7 +19,6 @@ router.post("/auth/authenticate", function(req, res) {
           { expiresIn: config.JWT_EXPIRATION, issuer: "masterLord" },
           function(err, token) {
             console.log("authenticated, token attached", token);
-
             res.redirect("../../");
             return res.status(200).json({
               message: "authenticated, token attached",
@@ -42,7 +41,7 @@ router.post("/auth/authenticate", function(req, res) {
 });
 
 // Any route past this point requires a valid auth token
-router.use("*", function(req, res, next) {
+router.use(function(req, res, next) {
   console.log("req:", req);
   var token = req.body.token || req.query.token || req.headers["authorization"];
   console.log("token", token);
