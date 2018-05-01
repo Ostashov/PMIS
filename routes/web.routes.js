@@ -25,10 +25,39 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.get("/signin", (req, res) => res.render("signin"));
+router.get("/signin", (req, res) => {
+  if (req.session.userId || req.session.userLogin) {
+    res.redirect("/");
+  } else {
+    res.render("signin");
+  }
+});
 router.post("/signin", (req, res) => {
   res.render("signin");
   console.log(req.body);
+});
+
+router.get("/visit", (req, res) => {
+  if (!(req.session.userId || req.session.userLogin)) {
+    res.redirect("/");
+  } else {
+    usersController
+      .getUserById(req.session.userId)
+      .then(function(result) {
+        console.log(result);
+        res.render("visit", { user: result });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+});
+router.post("/visit", (req, res) => {
+  if (!(req.session.userId || req.session.userLogin)) {
+    res.redirect("/");
+  } else {
+    res.render("visit");
+  }
 });
 
 // GET for logout

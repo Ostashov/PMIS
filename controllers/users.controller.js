@@ -1,5 +1,5 @@
-// var Promise = require("promise");
-// var config = require("./../config/config");
+var Promise = require("promise");
+var config = require("./../config/config");
 var User = require("./../models/user");
 
 module.exports = {
@@ -93,6 +93,29 @@ module.exports = {
           message: err
         });
       });
+  },
+
+  getUserById: function(req) {
+    return new Promise(function(resolve, reject) {
+      User.findOne({ id: req })
+        .then(function(result) {
+          resolve(result);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+    // User.findOne({ id: req })
+    //   .then(function(result) {
+    //     return res.status(200).json(result);
+    //   })
+    //   .catch(function(err) {
+    //     console.log(err);
+    //     res.redirect("/");
+    //     return res.status(400).json({
+    //       message: err
+    //     });
+    //   });
   },
 
   getSelfUser: function(req, res) {

@@ -1,5 +1,5 @@
 var Promise = require("promise");
-// var config = require("./../config/config");
+var config = require("./../config/config");
 var db = require("./../config/database");
 const CryptoJS = require("crypto-js");
 
@@ -23,6 +23,7 @@ module.exports = {
 
   findOne: function(data) {
     return new Promise(function(resolve, reject) {
+      // console.log(data.id, data.email);
       if (!data.id && !data.email) {
         reject("error: must provide id or email");
       } else {

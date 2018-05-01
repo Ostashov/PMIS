@@ -1,43 +1,10 @@
-<!DOCTYPE>
-<html>
+<% include layout/header.ejs %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Medmanis</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/main.css">
-</head>
-
-<body>
-  <header class="header">
-    <div class="container">
-      <a href="/" class="logo"></a>
-      <!--<% if (user.login) { %>
-      <div class="user-info">
-        Добро пожаловать, <b><%= user.login %></b>.
-      </div>
-      <% }%>-->
-      <div class="menu">
-        <% if (user.login) { %>
-          Добро пожаловать, <b><%= user.login %></b>.
-          <a href="/logout" class="btn btn-link" >Выход</a>
-        <% } else {%>
-        <a href="/register" class="btn btn-link" >
-            Регистрация
-        </a>
-        <a href="/signin" class="btn btn-primary" >
-            Вход
-        </a>
-        <% }%>
-      </div>
-    </div>
-  </header>
   <div class="main">
     <div class="container">
       <div class="content">
         <br> Patients Management Information System is under construction. <br>
+        <a href="/visit" class="btn btn-primary" >Приём пациента</a>
         <ul>
         <% users.forEach(function(user){ %>
           <li>
@@ -53,11 +20,4 @@
     </div>
   </div>
     
-  <footer class="footer">
-    <div class="container">
-      footer
-    </div>
-  </footer>
-</body>
-
-</html>
+<% include layout/footer.ejs %>

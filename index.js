@@ -14,7 +14,7 @@ var app = express();
 const port = config.PORT;
 
 app.listen(port, () => {
-  console.log("listening on port " + port);
+  console.log(Date(), ": listening on port " + port);
 });
 
 // database()
