@@ -8,6 +8,7 @@ module.exports = {
   PG_database: process.env.PG_DATABASE || "medmanis",
   PG_password: process.env.PG_password || "",
   PG_port: process.env.PG_PORT || 5432,
-  SECRET: process.env.SECRET || "h3sqq%pb#dHh^XcU8&Uj8brVS_*$LGHW",
+  SESSION_SECRET:
+    process.env.SESSION_SECRET || "h3sqq%pb#dHh^XcU8&Uj8brVS_*$LGHW",
   JWT_EXPIRATION: process.env.JWT_EXPIRATION || 86400
 };

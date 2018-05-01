@@ -21,7 +21,7 @@ var initApp = function() {
   // sessions
   app.use(
     session({
-      secret: config.SECRET,
+      secret: config.SESSION_SECRET,
       resave: true,
       saveUninitialized: false //,
       // store: new MongoStore({
