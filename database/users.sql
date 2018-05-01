@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
 	id serial,
-	login text,
 	email text,
 	firstname text,
 	lastname text,
@@ -9,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 	usertype_id smallint,
 	deleted_flag boolean,
 	login_attempts smallint,
-	last_login_attempt date
-	PRIMARY KEY( id )
+	last_login_attempt date,
+	CONSTRAINT users_pkey PRIMARY KEY (id),
+	CONSTRAINT email_idx UNIQUE (email)
 );

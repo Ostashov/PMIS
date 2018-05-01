@@ -4,9 +4,15 @@ var usersController = require("./../controllers/users.controller");
 // TODO
 // Browser client route here
 router.get("/", function(req, res) {
-  const id = req.session.userId;
-  const login = req.session.userLogin;
-  usersController.listUsers(req, res);
+  usersController.listUsers(req, res).then(function(listOfUsers) {
+    res.render("index", {
+      users: listOfUsers,
+      user: {
+        id: req.session.userId,
+        email: req.session.userLogin
+      }
+    });
+  });
 });
 
 router.get("/register", (req, res) => {
@@ -34,7 +40,7 @@ router.get("/signin", (req, res) => {
 });
 router.post("/signin", (req, res) => {
   res.render("signin");
-  console.log(req.body);
+  // console.log(req.body);
 });
 
 router.get("/visit", (req, res) => {
@@ -44,7 +50,7 @@ router.get("/visit", (req, res) => {
     usersController
       .getUserById(req.session.userId)
       .then(function(result) {
-        console.log(result);
+        // console.log(result);
         res.render("visit", { user: result });
       })
       .catch(function(err) {
@@ -65,12 +71,12 @@ router.get("/logout", (req, res) => {
   if (req.session.userId || req.session.userLogin) {
     // delete session object
     console.log("session was destroyed");
-    console.log(req.session);
+    // console.log(req.session);
     req.session.destroy(() => {
       res.redirect("/");
     });
   } else {
-    console.log("LOGOUT: session does not exist");
+    // console.log("LOGOUT: session does not exist");
     res.redirect("/");
   }
 });
