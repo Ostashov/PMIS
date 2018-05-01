@@ -6,6 +6,7 @@ module.exports = {
   createUser: function(req, res) {
     User.create(req.body)
       .then(function(result) {
+        res.redirect("/");
         return res.status(200).json({
           message: "success! created account for new user",
           id: result.id
@@ -111,7 +112,13 @@ module.exports = {
   listUsers: function(req, res) {
     User.findAll()
       .then(function(result) {
-        res.render("index", { users: result });
+        res.render("index", {
+          users: result,
+          user: {
+            id: req.session.userId,
+            login: req.session.userLogin
+          }
+        });
         return res.status(200).json(result);
       })
       .catch(function(err) {

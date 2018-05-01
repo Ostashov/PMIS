@@ -7,7 +7,10 @@ module.exports = {
   findAll: function() {
     return new Promise(function(resolve, reject) {
       db
-        .query("SELECT id, email, firstname, lastname FROM users", [])
+        .query(
+          "SELECT id, email, firstname, lastname FROM users ORDER BY id",
+          []
+        )
         .then(function(results) {
           resolve(results.rows);
         })

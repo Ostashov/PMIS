@@ -14,13 +14,23 @@
   <header class="header">
     <div class="container">
       <a href="/" class="logo"></a>
+      <!--<% if (user.login) { %>
+      <div class="user-info">
+        Добро пожаловать, <b><%= user.login %></b>.
+      </div>
+      <% }%>-->
       <div class="menu">
+        <% if (user.login) { %>
+          Добро пожаловать, <b><%= user.login %></b>.
+          <a href="/logout" class="btn btn-link" >Выход</a>
+        <% } else {%>
         <a href="/register" class="btn btn-link" >
             Регистрация
         </a>
         <a href="/signin" class="btn btn-primary" >
             Вход
         </a>
+        <% }%>
       </div>
     </div>
   </header>

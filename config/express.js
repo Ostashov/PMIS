@@ -3,6 +3,7 @@ var config = require("./config");
 var routes = require("./../routes/routes");
 var express = require("express");
 var bodyParser = require("body-parser");
+const session = require("express-session");
 
 var initApp = function() {
   // Init
@@ -14,6 +15,18 @@ var initApp = function() {
   app.use(
     bodyParser.urlencoded({
       extended: true
+    })
+  );
+
+  // sessions
+  app.use(
+    session({
+      secret: config.SECRET,
+      resave: true,
+      saveUninitialized: false //,
+      // store: new MongoStore({
+      //   mongooseConnection: mongoose.connection
+      // })
     })
   );
 
