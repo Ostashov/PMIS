@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const config = require("./config");
+const config = require("./config/config");
 const CryptoJS = require("crypto-js");
 const pg = require("pg");
 const pg_connect = {

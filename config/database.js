@@ -1,12 +1,12 @@
 var Promise = require("promise");
-var config = require("./../config");
+var config = require("./config");
 var pg = require("pg");
 const pg_connect = {
-  user: config.user,
-  host: config.host,
-  database: config.database,
-  password: config.password,
-  port: config.port_pg
+  user: config.PG_user,
+  host: config.PG_host,
+  database: config.PG_database,
+  password: config.PG_password,
+  port: config.PG_port
 };
 
 module.exports = {
