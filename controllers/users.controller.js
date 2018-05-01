@@ -105,17 +105,6 @@ module.exports = {
           reject(err);
         });
     });
-    // User.findOne({ id: req })
-    //   .then(function(result) {
-    //     return res.status(200).json(result);
-    //   })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //     res.redirect("/");
-    //     return res.status(400).json({
-    //       message: err
-    //     });
-    //   });
   },
 
   getSelfUser: function(req, res) {
@@ -142,21 +131,5 @@ module.exports = {
           reject(err);
         });
     });
-    // User.findAll()
-    //   .then(function(result) {
-    //     res.render("index", {
-    //       users: result,
-    //       user: {
-    //         id: req.session.userId,
-    //         login: req.session.userLogin
-    //       }
-    //     });
-    //     return res.status(200).json(result);
-    //   })
-    //   .catch(function(err) {
-    //     return res.status(400).json({
-    //       message: err
-    //     });
-    //   });
   }
 };

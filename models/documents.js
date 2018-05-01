@@ -7,7 +7,7 @@ module.exports = {
   findAllTypes: function() {
     return new Promise(function(resolve, reject) {
       db
-        .query("SELECT * FROM documenttype_dct ORDER BY id", [])
+        .query("SELECT * FROM documenttype_dct ORDER BY title", [])
         .then(function(results) {
           resolve(results.rows);
         })
