@@ -25,6 +25,17 @@
               <button id="searchPatientButton" class="btn btn-primary">Поиск</button>
             </form>
           </div>
+          <div class="col-md-3">
+            <ul>
+              <% listOfPatients.forEach(function(patient){ %>
+              <li>
+                Имя: <%= patient.firstname %> <br>
+                Фамилия: <%= patient.lastname %>
+              </li>
+              <br>
+              <% }); %>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

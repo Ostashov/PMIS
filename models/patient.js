@@ -39,22 +39,24 @@ module.exports = {
 
   create: function(data) {
     return new Promise(function(resolve, reject) {
-      db.query(
-        "INSERT INTO patients (firstname, lastname, middlename, birthdate, deleted_flag) VALUES ($1, $2, $3, $4, $5) returning id",
-        [
-          data.firstname,
-          data.lastname,
-          data.middlename || null,
-          data.birthdate,
-          false
-        ]
-      )
-      .then(function(result) {
-        resolve(result.rows[0]);
-      })
-      .catch(function(err) {
-        reject(err);
-      });
+      db
+        .query(
+          "INSERT INTO patients (firstname, lastname, middlename, birthdate, deleted_flag) VALUES ($1, $2, $3, $4, $5) returning id",
+          [
+            data.firstname,
+            data.lastname,
+            data.middlename || null,
+            data.birthdate,
+            false
+          ]
+        )
+        .then(function(result) {
+          resolve(result.rows[0]);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
   },
 
   delete: function(data) {
@@ -77,7 +79,7 @@ module.exports = {
       } else {
         db
           .query(
-            "UPDATE patients SET firstname = $2 WHERE id = $1 returning name",
+            "UPDATE patients SET firstname = $2 WHERE id = $1 returning firstname",
             [data.id, data.firstname]
           )
           .then(function(result) {
@@ -97,7 +99,7 @@ module.exports = {
       } else {
         db
           .query(
-            "UPDATE patients SET lastname = $2 WHERE id = $1 returning name",
+            "UPDATE patients SET lastname = $2 WHERE id = $1 returning lastname",
             [data.id, data.lastname]
           )
           .then(function(result) {
@@ -117,7 +119,7 @@ module.exports = {
       } else {
         db
           .query(
-            "UPDATE patients SET middlename = $2 WHERE id = $1 returning name",
+            "UPDATE patients SET middlename = $2 WHERE id = $1 returning middlename",
             [data.id, data.middlename]
           )
           .then(function(result) {
@@ -137,7 +139,7 @@ module.exports = {
       } else {
         db
           .query(
-            "UPDATE patients SET birthdate = $2 WHERE id = $1 returning name",
+            "UPDATE patients SET birthdate = $2 WHERE id = $1 returning birthdate",
             [data.id, data.birthdate]
           )
           .then(function(result) {
