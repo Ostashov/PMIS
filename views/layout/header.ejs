@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Medmanis</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
 </head>
 
@@ -23,8 +24,8 @@
       <% }%>-->
       <div class="menu col-md-6">
         <% if (user.id) { %>
-          Добро пожаловать, <b><%= user.email %></b>.
-          <a href="/logout" class="btn btn-link" >Выход</a>
+          <b><%= user.email %></b>
+          <a href="/logout" class="btn btn-link" ><i class="fas fa-sign-out-alt"></i></a>
         <% } else {%>
         <a href="/register" class="btn btn-link" >
             Регистрация

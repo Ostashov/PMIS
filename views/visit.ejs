@@ -5,36 +5,57 @@
       <div class="content">
         <div class="col-md-12">
           <h3>Приём пациента</h3>
-          <div class="searchPatientForm col-md-9">
-            <form action="">
-              <h6>Поиск пациента</h6>
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                  <label for="selectTypeOfDocument" >Тип документа</label>
-                  <select type="email" id="selectTypeOfDocument" class="form-control" name="documentType" required>
-                    <% listOfDocumentTypes.forEach(function(documentType){ %>
-                      <option value="<%= documentType.id %>"><%= documentType.title %></option>
-                    <% }); %>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputNumberOfDocument" >Номер документа</label>
-                  <input type="text" id="inputNumberOfDocument" class="form-control" placeholder="Номер документа" >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">Поиск пациента</div>
+                <div class="card-body">
+                  <form class="searchPatientForm" action="">
+                    <div class="form-row">
+                      <div class="form-group col-md-9">
+                        <label for="inputLastnamePatient">Фамилия</label>
+                        <input type="text" id="inputLastnamePatient" class="form-control" placeholder="Фамилия" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="selectTypeOfDocument" >Тип документа</label>
+                        <select type="email" id="selectTypeOfDocument" class="form-control" name="documentType" required>
+                          <% listOfDocumentTypes.forEach(function(documentType){ %>
+                            <option value="<%= documentType.id %>"><%= documentType.title %></option>
+                          <% }); %>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-5">
+                        <label for="inputNumberOfDocument" >Номер документа</label>
+                        <input type="text" id="inputNumberOfDocument" class="form-control" placeholder="Номер документа" >
+                      </div>
+                    </div>
+                    <button id="searchPatientButton" class="btn btn-primary">Поиск</button>
+                  </form>
                 </div>
               </div>
-              <button id="searchPatientButton" class="btn btn-primary">Поиск</button>
-            </form>
-          </div>
-          <div class="col-md-3">
-            <ul>
-              <% listOfPatients.forEach(function(patient){ %>
-              <li>
-                Имя: <%= patient.firstname %> <br>
-                Фамилия: <%= patient.lastname %>
-              </li>
-              <br>
-              <% }); %>
-            </ul>
+              <div class="card">
+                <div class="card-header">Добавление нового пациента</div>
+                <div class="card-body">...</div>
+              </div>
+            </div>
+            <div class="listOfPatients col-md-6">
+              <div class="card">
+                <div class="card-header">Список пациентов</div>
+                <div class="card-body">
+                  <ul >
+                    <% listOfPatients.forEach(function(patient){ %>
+                    <li class="card-text">
+                      <%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename[0] %>. </br>
+                      <%= new Date(Date.parse(patient.birthdate)).getFullYear(); %> г.р.
+                    </li>
+                    <br>
+                    <% }); %>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

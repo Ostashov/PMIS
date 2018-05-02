@@ -21,5 +21,6 @@ header a.logo:visited {
 
 /**** VISIT ****/
 
-.searchPatientForm {
+.card {
+  margin-bottom: 15px;
 }
