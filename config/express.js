@@ -1,9 +1,12 @@
 // Dependencies
-var config = require("./config");
-var routes = require("./../routes/routes");
 var express = require("express");
 var bodyParser = require("body-parser");
-const session = require("express-session");
+// var mongoose = require("mongoose");
+var session = require("express-session");
+// var MongoStore = require("connect-mongo")(session);
+
+var config = require("./config");
+var routes = require("./../routes/routes");
 
 var initApp = function() {
   // Init
@@ -17,6 +20,8 @@ var initApp = function() {
       extended: true
     })
   );
+
+  // mongoose.connect(config.MONGO_URL);
 
   // sessions
   app.use(

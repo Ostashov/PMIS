@@ -11,7 +11,6 @@ router.post("/auth/register", usersController.createUser);
 router.post("/auth/authenticate", function(req, res) {
   User.authenticate(req.body)
     .then(function(result) {
-      console.log(result);
       if (result.isAuthorized === true) {
         console.log("=== isAuthorized");
         req.body.id = result.id;
