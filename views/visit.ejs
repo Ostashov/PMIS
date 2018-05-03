@@ -10,7 +10,7 @@
               <div class="card">
                 <div class="card-header">Поиск пациента</div>
                 <div class="card-body">
-                  <form class="searchPatientForm" action="">
+                  <form class="searchPatientForm">
                     <div class="form-row">
                       <div class="form-group col-md-9">
                         <label for="inputFindLastnamePatient">Фамилия</label>
@@ -31,7 +31,7 @@
                         <input type="text" id="inputNumberOfDocument" class="form-control" placeholder="Номер документа" disabled>
                       </div>
                     </div>
-                    <button id="searchPatientButton" class="btn btn-primary">Поиск</button>
+                    <button type="button" id="searchPatientButton" class="btn btn-primary">Поиск</button>
                     <button id="showAddPatientFormButton" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#addPatientFormCard" >Добавить нового пациента</button>
                   </form>
                 </div>
@@ -105,9 +105,9 @@
             <!-- End of Modal -->
             <div class="listOfPatients col-md-6">
               <div class="card">
-                <div class="card-header">Список пациентов</div>
+                <div class="card-header" id="listOfPatientsTitle">Список пациентов</div>
                 <div class="card-body">
-                  <ul >
+                  <ul id="listOfPatients" >
                     <% listOfPatients.forEach(function(patient){ %>
                     <li >
                       <%= patient.lastname %> <%= patient.firstname %> <% if (patient.middlename) {%> <%= patient.middlename %> <%} %> </br>

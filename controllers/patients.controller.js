@@ -81,6 +81,29 @@ module.exports = {
     });
   },
 
+  getPatientsByLastname: function(req, res) {
+    Patient.findAllByLastname({ lastname: req.params.lastname })
+      .then(function(result) {
+        return res.status(200).json(result);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
+  },
+  // getPatientsByLastname: function() {
+  //   return new Promise(function(resolve, reject) {
+  //     Patient.findAllByLastname()
+  //       .then(function(result) {
+  //         resolve(result);
+  //       })
+  //       .catch(function(err) {
+  //         reject(err);
+  //       });
+  //   });
+  // },
+
   listPatients: function() {
     return new Promise(function(resolve, reject) {
       Patient.findAll()

@@ -3,22 +3,38 @@
   <div class="main">
     <div class="container">
       <div class="content">
-        <div class="col-md-12">
-          <p class="border border-info rounded">Patients Management Information System is under construction.</p>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card border-info">
+              <div class="card-body">
+                Information and Analytical Treatment Management System is under construction.
+              </div>
+            </div>
+          </div>
           <% if (user.id) { %>
-          <a href="/visit" class="btn btn-primary" >Приём пациента</a>
+          <div class="col-md-12">
+            <a href="/visit" class="btn btn-primary" >Приём пациента</a>
+          </div>
           <% }%>
-          <ul>
-          <% users.forEach(function(user){ %>
-            <li>
-              ID: <%= user.id %> <br>
-              Email: <%= user.email %> <br>
-              Имя: <%= user.firstname %> <br>
-              Фамилия: <%= user.lastname %>
-            </li>
-            <br>
-            <% }); %>
-          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card" style="margin-top: 15px;">
+              <div class="card-header">Список всех пользователей</div>
+              <div class="card-body">
+                <ul>
+                <% users.forEach(function(user){ %>
+                  <li>
+                    ID: <%= user.id %> <br>
+                    Email: <%= user.email %> <br>
+                    Имя: <%= user.firstname %> <br>
+                    Фамилия: <%= user.lastname %>
+                  </li>
+                  <% }); %>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

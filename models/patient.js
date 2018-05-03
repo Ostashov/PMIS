@@ -21,6 +21,23 @@ module.exports = {
     });
   },
 
+  findAllByLastname: function(data) {
+    return new Promise(function(resolve, reject) {
+      db
+        .query(
+          "SELECT * FROM patients WHERE lower(lastname) LIKE $1 ORDER BY lastname, firstname, middlename ",
+          [data.lastname.toLowerCase().substring(1) + "%"]
+        )
+        .then(function(results) {
+          resolve(results.rows);
+        })
+        .catch(function(err) {
+          console.log(err);
+          reject(err);
+        });
+    });
+  },
+
   findOne: function(data) {
     return new Promise(function(resolve, reject) {
       if (!data.id) {

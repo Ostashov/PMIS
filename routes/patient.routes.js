@@ -8,4 +8,6 @@ router.get("/patient/new", (req, res) => {
   res.redirect("./");
 });
 
+router.post("/patients:lastname", patientsController.getPatientsByLastname);
+
 module.exports = router;

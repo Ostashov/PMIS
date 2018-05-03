@@ -1,4 +1,4 @@
-// method="POST" action="api/patient/new"
+// CONTROL ///////////////////////////////////////////////
 
 $("#addPatientFormButton").click(function() {
   // var form = $("#addPatientForm");
@@ -69,3 +69,43 @@ $("#startFirstVisitButton").click(function() {
 
   window.location.href = "/visit";
 });
+
+$("#searchPatientButton").click(function() {
+  var lastname = $("#inputFindLastnamePatient").val();
+
+  if (lastname) {
+    $.ajax({
+      url: "./api/patients:" + lastname,
+      type: "POST",
+      success: function(data) {
+        console.log(data);
+        updateListOfPatients(data);
+      }
+    });
+  } else {
+    console.error("Empty input");
+  }
+});
+
+// VIEW //////////////////////////////
+
+function updateListOfPatients(data) {
+  var ulPatients = $("#listOfPatients");
+  ulPatients.html("");
+  $("#listOfPatientsTitle").text("Список найденных пациентов");
+  data.forEach(function(patient) {
+    console.info(patient);
+    ulPatients.append(
+      "<li>" +
+        patient.lastname +
+        " " +
+        patient.firstname +
+        " " +
+        patient.middlename +
+        "</br>" +
+        new Date(Date.parse(patient.birthdate)).getFullYear() +
+        " г.р." +
+        "</li>"
+    );
+  });
+}
