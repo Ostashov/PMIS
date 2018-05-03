@@ -14,7 +14,7 @@
                     <div class="form-row">
                       <div class="form-group col-md-9">
                         <label for="inputFindLastnamePatient">Фамилия</label>
-                        <input type="text" id="inputFindLastnamePatient" class="form-control" placeholder="Фамилия" >
+                        <input type="text" id="inputFindLastnamePatient" class="form-control" placeholder="Фамилия" autofocus>
                       </div>
                     </div>
                     <div class="form-row">
@@ -42,30 +42,38 @@
                   <div class="card-body">
                     <form id="addPatientForm" class="addPatientForm">
                       <div class="form-row">
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-4">
                           <label for="inputAddPatientLastname" class="sr-only" >Фамилия</label>
-                          <input type="text" id="inputAddPatientLastname" class="form-control" name="lastname" placeholder="Фамилия" >
+                          <input type="text" id="inputAddPatientLastname" class="form-control" name="lastname" placeholder="Фамилия" required>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputAddPatientFirstname" class="sr-only" >Имя</label>
-                          <input type="text" id="inputAddPatientFirstname" class="form-control" name="firstname" placeholder="Имя" >
+                          <input type="text" id="inputAddPatientFirstname" class="form-control" name="firstname" placeholder="Имя" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputAddPatientMiddlename" class="sr-only" >Отчество</label>
+                          <input type="text" id="inputAddPatientMiddlename" class="form-control" name="middlename" placeholder="Отчество" required>
                         </div>
                       </div>
                       <div class="form-row">
                           <div class="form-group col-md-2">
                             <label for="addPatientBirthDay">День</label>
-                            <input type="text" id="addPatientBirthDay" class="form-control" name="birthday" placeholder="dd" >
+                            <input type="text" id="addPatientBirthDay" class="form-control" name="birthday" placeholder="dd" required>
                           </div>
                           <div class="form-group col-md-2">
                             <label for="addPatientBirthMonth">Месяц</label>
-                            <input type="text" id="addPatientBirthMonth" class="form-control" name="birthmonth" placeholder="mm" >
+                            <input type="text" id="addPatientBirthMonth" class="form-control" name="birthmonth" placeholder="mm" required>
                           </div>
                           <div class="form-group col-md-3">
                             <label for="addPatientBirthYear">Год</label>
-                            <input type="text" id="addPatientBirthYear" class="form-control" name="birthyear" placeholder="yyyy" >
+                            <input type="text" id="addPatientBirthYear" class="form-control" name="birthyear" placeholder="yyyy" required>
                           </div>
                       </div>
-                      <button type="button" id="addPatientFormButton" class="btn btn-primary" data-toggle="modal" data-target="#addPatientCheckModal" >Начать приём</button>
+                      <small id="addPatientErrorBlock" class="form-text text-danger" style="display: none">
+                        Не все поля заполнены
+                      </small>
+                      <!--<button type="button" id="addPatientFormButton" class="btn btn-primary" data-toggle="modal" data-target="#addPatientCheckModal" >Начать приём</button>-->
+                      <button type="button" id="addPatientFormButton" class="btn btn-primary" >Начать приём</button>
                     </form>
                   </div>
                 </div>
@@ -83,16 +91,18 @@
                     <div class="modal-body">
                       <p>Имя: <span id="patientFirstnameCheckModal"></span></p>
                       <p>Фамилия: <span id="patientLastnameCheckModal"></span></p>
+                      <p>Отчество: <span id="patientMiddlenameCheckModal"></span></p>
                       <p>Дата рождения: <span id="patientBirthdateCheckModal"></span></p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Изменить</button>
-                      <button type="button" class="btn btn-primary">Начать первичный приём</button>
+                      <button type="button" class="btn btn-primary" id="startFirstVisitButton" >Начать первичный приём</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- End of Modal -->
             <div class="listOfPatients col-md-6">
               <div class="card">
                 <div class="card-header">Список пациентов</div>
@@ -100,7 +110,7 @@
                   <ul >
                     <% listOfPatients.forEach(function(patient){ %>
                     <li >
-                      <%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename[0] %>. </br>
+                      <%= patient.lastname %> <%= patient.firstname %> <% if (patient.middlename) {%> <%= patient.middlename %> <%} %> </br>
                       <%= new Date(Date.parse(patient.birthdate)).getFullYear(); %> г.р.
                     </li>
                     <br>

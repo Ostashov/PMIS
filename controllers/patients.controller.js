@@ -6,9 +6,9 @@ module.exports = {
   createPatient: function(req, res) {
     Patient.create(req.body)
       .then(function(result) {
-        res.redirect("/");
+        res.redirect("./visit");
         return res.status(200).json({
-          message: "success! created account for new patient",
+          message: "success! created the new patient",
           id: result.id
         });
       })
