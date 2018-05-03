@@ -40,7 +40,7 @@
                 <div class="card" >
                   <div class="card-header">Добавление нового пациента</div>
                   <div class="card-body">
-                    <form method="POST" action="api/patient/new" class="addPatientForm">
+                    <form id="addPatientForm" class="addPatientForm">
                       <div class="form-row">
                         <div class="form-group col-md-8">
                           <label for="inputAddPatientLastname" class="sr-only" >Фамилия</label>
@@ -65,8 +65,30 @@
                             <input type="text" id="addPatientBirthYear" class="form-control" name="birthyear" placeholder="yyyy" >
                           </div>
                       </div>
-                      <button type="submit" id="addPatientFormButton" class="btn btn-primary" >Начать приём</button>
+                      <button type="button" id="addPatientFormButton" class="btn btn-primary" data-toggle="modal" data-target="#addPatientCheckModal" >Начать приём</button>
                     </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="addPatientCheckModal" tabindex="-1" role="dialog" aria-labelledby="addPatientCheckModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addPatientCheckModalLabel">Пожалуйста, проверьте данные</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Имя: <span id="patientFirstnameCheckModal"></span></p>
+                      <p>Фамилия: <span id="patientLastnameCheckModal"></span></p>
+                      <p>Дата рождения: <span id="patientBirthdateCheckModal"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Изменить</button>
+                      <button type="button" class="btn btn-primary">Начать первичный приём</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -92,5 +114,6 @@
       </div>
     </div>
   </div>
-    
+  
+  <script src="/js/visit.js" ></script>
 <% include layout/footer.ejs %>
