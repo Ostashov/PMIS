@@ -8,7 +8,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT * FROM patients ORDER BY lastname, firstname, middlename",
+          "SELECT * FROM patients WHERE deleted_flag = false ORDER BY lastname, firstname, middlename",
           []
         )
         .then(function(results) {
@@ -25,7 +25,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT * FROM patients WHERE lower(lastname) LIKE $1 ORDER BY lastname, firstname, middlename ",
+          "SELECT * FROM patients WHERE lower(lastname) LIKE $1 AND deleted_flag = false ORDER BY lastname, firstname, middlename ",
           [data.lastname.toLowerCase().substring(1) + "%"]
         )
         .then(function(results) {
@@ -79,7 +79,10 @@ module.exports = {
   delete: function(data) {
     return new Promise(function(resolve, reject) {
       db
-        .query("DELETE FROM patients WHERE id = $1 returning id", [data.id])
+        .query(
+          "UPDATE patients SET deleted_flag = true WHERE id = $1 returning id",
+          [data.id]
+        )
         .then(function(result) {
           resolve(result.rows[0]);
         })
@@ -173,7 +176,9 @@ module.exports = {
 function findOneById(id) {
   return new Promise(function(resolve, reject) {
     db
-      .query("SELECT * FROM patients WHERE id = $1", [id])
+      .query("SELECT * FROM patients WHERE id = $1 AND deleted_flag = false", [
+        id
+      ])
       .then(function(result) {
         if (result.rows[0]) {
           resolve(result.rows[0]);

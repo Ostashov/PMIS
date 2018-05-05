@@ -8,7 +8,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT id, email, firstname, lastname FROM users ORDER BY id",
+          "SELECT id, email, firstname, lastname WHERE deleted_flag = false FROM users ORDER BY id",
           []
         )
         .then(function(results) {
@@ -84,7 +84,10 @@ module.exports = {
   delete: function(data) {
     return new Promise(function(resolve, reject) {
       db
-        .query("DELETE FROM users WHERE id = $1 returning id", [data.id])
+        .query(
+          "UPDATE users SET deleted_flag = true WHERE id = $1 returning id",
+          [data.id]
+        )
         .then(function(result) {
           resolve(result.rows[0]);
         })
@@ -225,7 +228,7 @@ module.exports = {
 function findOneById(id) {
   return new Promise(function(resolve, reject) {
     db
-      .query("SELECT * FROM users WHERE id = $1", [id])
+      .query("SELECT * FROM users WHERE id = $1 AND deleted_flag = false", [id])
       .then(function(result) {
         if (result.rows[0]) {
           resolve(result.rows[0]);
@@ -242,7 +245,9 @@ function findOneById(id) {
 function findOneByEmail(email) {
   return new Promise(function(resolve, reject) {
     db
-      .query("SELECT * FROM users WHERE email = $1", [email])
+      .query("SELECT * FROM users WHERE email = $1 AND deleted_flag = false", [
+        email
+      ])
       .then(function(result) {
         if (result.rows[0]) {
           resolve(result.rows[0]);

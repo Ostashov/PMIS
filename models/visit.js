@@ -7,25 +7,8 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT * FROM patients ORDER BY lastname, firstname, middlename",
+          "SELECT * FROM visits WHERE deleted_flag = false ORDER BY id",
           []
-        )
-        .then(function(results) {
-          resolve(results.rows);
-        })
-        .catch(function(err) {
-          console.log(err);
-          reject(err);
-        });
-    });
-  },
-
-  findAllByLastname: function(data) {
-    return new Promise(function(resolve, reject) {
-      db
-        .query(
-          "SELECT * FROM patients WHERE lower(lastname) LIKE $1 ORDER BY lastname, firstname, middlename ",
-          [data.lastname.toLowerCase().substring(1) + "%"]
         )
         .then(function(results) {
           resolve(results.rows);
@@ -57,12 +40,12 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "INSERT INTO patients (firstname, lastname, middlename, birthdate, deleted_flag) VALUES ($1, $2, $3, $4, $5) returning id",
+          "INSERT INTO visits (specialist_id, patient_id, start_dttm, end_dtt, deleted_flag) VALUES ($1, $2, $3, $4, $5) returning id",
           [
-            data.firstname,
-            data.lastname,
-            data.middlename || null,
-            data.birthdate,
+            data.specialistId,
+            data.patientId,
+            data.start_dttm,
+            data.end_dttm,
             false
           ]
         )
@@ -78,7 +61,10 @@ module.exports = {
   delete: function(data) {
     return new Promise(function(resolve, reject) {
       db
-        .query("DELETE FROM patients WHERE id = $1 returning id", [data.id])
+        .query(
+          "UPDATE visits SET deleted_flag = true WHERE id = $1 returning id",
+          [data.id]
+        )
         .then(function(result) {
           resolve(result.rows[0]);
         })
@@ -86,98 +72,20 @@ module.exports = {
           reject(err);
         });
     });
-  },
-
-  updateFirstname: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET firstname = $2 WHERE id = $1 returning firstname",
-            [data.id, data.firstname]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateLastname: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET lastname = $2 WHERE id = $1 returning lastname",
-            [data.id, data.lastname]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateMiddlename: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET middlename = $2 WHERE id = $1 returning middlename",
-            [data.id, data.middlename]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateBirthdate: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET birthdate = $2 WHERE id = $1 returning birthdate",
-            [data.id, data.birthdate]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
   }
 };
 
 function findOneById(id) {
   return new Promise(function(resolve, reject) {
     db
-      .query("SELECT * FROM patients WHERE id = $1", [id])
+      .query("SELECT * FROM visits WHERE id = $1 AND deleted_flag = false", [
+        id
+      ])
       .then(function(result) {
         if (result.rows[0]) {
           resolve(result.rows[0]);
         } else {
-          reject("no patient found");
+          reject("no visit found");
         }
       })
       .catch(function(err) {
