@@ -9,6 +9,9 @@ router.use(require("./user.routes"));
 // Patient routes
 router.use(require("./patient.routes"));
 
+// Visit routes
+router.use(require("./visit.routes"));
+
 // API v1
 router.use("/v1", require("./apiv1/users.routes"));
 

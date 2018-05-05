@@ -36,17 +36,31 @@ module.exports = {
     });
   },
 
+  getSpecialist: function(data) {
+    return new Promise(function(resolve, reject) {
+      if (!data.id) {
+        reject("error: must provide id");
+      } else {
+        db.query(
+          "SELECT * FROM specialists WHERE deleted_flag = false AND id IN (SELECT specialis_id FROM visits WHERE id = $1 AND deleted_flag = false)",
+          [data.id]
+        );
+      }
+    });
+  },
+
   create: function(data) {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "INSERT INTO visits (specialist_id, patient_id, start_dttm, end_dtt, deleted_flag) VALUES ($1, $2, $3, $4, $5) returning id",
+          "INSERT INTO visits (specialist_id, patient_id, start_dttm, end_dtt, deleted_flag, isFirst) VALUES ($1, $2, $3, $4, $5, $6) returning id",
           [
             data.specialistId,
             data.patientId,
             data.start_dttm,
             data.end_dttm,
-            false
+            false,
+            data.isFirst
           ]
         )
         .then(function(result) {

@@ -6,7 +6,7 @@ module.exports = {
   createPatient: function(req, res) {
     Patient.create(req.body)
       .then(function(result) {
-        res.redirect("./visit");
+        // res.redirect("./visit");
         return res.status(200).json({
           message: "success! created the new patient",
           id: result.id
@@ -92,17 +92,6 @@ module.exports = {
         });
       });
   },
-  // getPatientsByLastname: function() {
-  //   return new Promise(function(resolve, reject) {
-  //     Patient.findAllByLastname()
-  //       .then(function(result) {
-  //         resolve(result);
-  //       })
-  //       .catch(function(err) {
-  //         reject(err);
-  //       });
-  //   });
-  // },
 
   listPatients: function() {
     return new Promise(function(resolve, reject) {

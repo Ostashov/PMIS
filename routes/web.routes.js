@@ -2,6 +2,7 @@ var router = require("express").Router();
 var usersController = require("./../controllers/users.controller");
 var documentsController = require("./../controllers/documents.controller");
 var patientsController = require("./../controllers/patients.controller");
+var visitsController = require("./../controllers/visits.controller");
 
 // TODO
 // Browser client route here
@@ -86,11 +87,43 @@ router.get("/visit", (req, res) => {
       });
   }
 });
+
 router.post("/visit", (req, res) => {
   if (!(req.session.userId || req.session.userLogin)) {
     res.redirect("/");
   } else {
     res.render("visit");
+  }
+});
+
+router.get("/visit:visitId", (req, res) => {
+  var specialist = {};
+  var visitId = req.params.visitId.substring(1);
+  if (!(req.session.userId || req.session.userLogin)) {
+    res.redirect("/");
+  } else {
+    // specialist = visitsController.getSpecialistByVisitId(visitId);
+  }
+  if (specialist) {
+    if ((specialist.id = req.session.userId)) {
+      console.log(JSON.stringify(specialist));
+      res.render("particularVisit", {
+        visit: {
+          id: visitId
+        },
+        user: {
+          id: req.session.userId,
+          email: req.session.userLogin
+        }
+      });
+    } else {
+      res.render("particularVisit", {
+        user: {
+          id: req.session.userId,
+          email: req.session.userLogin
+        }
+      });
+    }
   }
 });
 

@@ -43,6 +43,7 @@ $("#addPatientFormButton").click(function() {
 });
 
 $("#startFirstVisitButton").click(function() {
+  $(this).prop("disabled", true);
   var firstnameVal = $("#inputAddPatientFirstname").val();
   var lastnameVal = $("#inputAddPatientLastname").val();
   var middlenameVal = $("#inputAddPatientMiddlename").val();
@@ -57,17 +58,32 @@ $("#startFirstVisitButton").click(function() {
     birthdate: birthyearVal + "-" + birthmonthVal + "-" + birthdayVal
   };
 
+  var newVisitData = {
+    start_dttm: getCurrentDateTime(),
+    end_dttm: "5999-12-31 00:00:00",
+    isFirst: true,
+    deleted_flag: false
+  };
+
   $.ajax({
     url: "./api/patient/new",
     type: "POST",
     data: newPatientData,
-    success: function() {
-      alert("POST success");
+    success: function(data) {
+      newVisitData.patientId = data.id;
+      alert(JSON.stringify(newVisitData));
+      $.ajax({
+        url: "./api/users/getSelf",
+        type: "POST",
+        success: function(data) {
+          newVisitData.specialistId = data.id;
+          alert(JSON.stringify(newVisitData));
+          startNewVisit(newVisitData);
+        }
+      });
     },
     dataType: "json"
   });
-
-  window.location.href = "/visit";
 });
 
 $("#searchPatientButton").click(function() {
@@ -100,8 +116,10 @@ $(document).on("click", ".choosePatientBadge", function() {
   var badge = $(this);
   var newVisitData = {
     patientId: badge.data("patientId"),
-    start_dttm: new Date(),
-    end_dttm: "5999-12-31 00:00:00"
+    start_dttm: getCurrentDateTime(),
+    end_dttm: "5999-12-31 00:00:00",
+    isFirst: false,
+    deleted_flag: false
   };
 
   $.ajax({
@@ -117,6 +135,34 @@ $(document).on("click", ".choosePatientBadge", function() {
 
 function startNewVisit(visitData) {
   alert(JSON.stringify(visitData));
+  $.ajax({
+    url: "./api/visit/new",
+    type: "POST",
+    data: visitData,
+    success: function(data) {
+      console.log(data);
+      window.location.href = "/visit:" + data.id;
+    },
+    dataType: "json"
+  });
+}
+
+function getCurrentDateTime() {
+  var clickDttm = new Date();
+  // clickDttm = clickDttm.();
+  clickDttm =
+    clickDttm.getFullYear() +
+    "-" +
+    clickDttm.getMonth() +
+    "-" +
+    clickDttm.getDate() +
+    " " +
+    clickDttm.getHours() +
+    ":" +
+    clickDttm.getMinutes() +
+    ":" +
+    clickDttm.getSeconds();
+  return clickDttm;
 }
 
 // VIEW //////////////////////////////
