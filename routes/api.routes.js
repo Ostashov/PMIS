@@ -3,6 +3,9 @@ var router = require("express").Router();
 // Authentication routes
 router.use(require("./auth.routes"));
 
+// User routes
+router.use(require("./user.routes"));
+
 // Patient routes
 router.use(require("./patient.routes"));
 

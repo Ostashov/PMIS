@@ -24,3 +24,10 @@ header a.logo:visited {
 .card {
   margin-bottom: 15px;
 }
+
+.choosePatientBadge:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #1e7e34;
+}

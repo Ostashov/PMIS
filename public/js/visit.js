@@ -96,6 +96,29 @@ $(".searchPatientForm input").keypress(function(e) {
   }
 });
 
+$(document).on("click", ".choosePatientBadge", function() {
+  var badge = $(this);
+  var newVisitData = {
+    patientId: badge.data("patientId"),
+    start_dttm: new Date(),
+    end_dttm: "5999-12-31 00:00:00"
+  };
+
+  $.ajax({
+    url: "./api/users/getSelf",
+    type: "POST",
+    success: function(data) {
+      console.log(data);
+      newVisitData.specialistId = data.id;
+      startNewVisit(newVisitData);
+    }
+  });
+});
+
+function startNewVisit(visitData) {
+  alert(JSON.stringify(visitData));
+}
+
 // VIEW //////////////////////////////
 
 function updateListOfPatients(data) {
@@ -111,10 +134,19 @@ function updateListOfPatients(data) {
         patient.firstname +
         " " +
         patient.middlename +
+        choosePatientButton(patient.id) +
         "</br>" +
         new Date(Date.parse(patient.birthdate)).getFullYear() +
         " г.р." +
         "</li>"
     );
   });
+}
+
+function choosePatientButton(id) {
+  return (
+    " <span class='badge badge-success choosePatientBadge' data-patient-id='" +
+    id +
+    "' >Начать приём</span>"
+  );
 }

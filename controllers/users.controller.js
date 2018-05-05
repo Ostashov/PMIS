@@ -108,7 +108,7 @@ module.exports = {
   },
 
   getSelfUser: function(req, res) {
-    User.findOne({ id: req.decoded.sub })
+    User.findOne({ id: req.session.userId })
       .then(function(result) {
         delete result.last_login_attempt;
         delete result.login_attempts;
