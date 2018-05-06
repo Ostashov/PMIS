@@ -8,7 +8,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT id, email, firstname, lastname WHERE deleted_flag = false FROM users ORDER BY id",
+          "SELECT id, email, firstname, lastname FROM users WHERE deleted_flag = false ORDER BY id",
           []
         )
         .then(function(results) {

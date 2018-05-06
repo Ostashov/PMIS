@@ -41,10 +41,23 @@ module.exports = {
       if (!data.id) {
         reject("error: must provide id");
       } else {
-        db.query(
-          "SELECT * FROM specialists WHERE deleted_flag = false AND id IN (SELECT specialis_id FROM visits WHERE id = $1 AND deleted_flag = false)",
-          [data.id]
-        );
+        db
+          .query(
+            "SELECT * FROM users WHERE deleted_flag = false AND id IN (SELECT specialist_id FROM visits WHERE id = $1 AND deleted_flag = false)",
+            [data.id]
+          )
+          .then(function(results) {
+            var specialist = results.rows[0];
+            delete specialist.password;
+            delete specialist.deleted_flag;
+            delete specialist.last_login_attempt;
+            delete specialist.login_attempts;
+            resolve(specialist);
+          })
+          .catch(function(err) {
+            console.log(err);
+            reject(err);
+          });
       }
     });
   },
@@ -97,7 +110,9 @@ function findOneById(id) {
       ])
       .then(function(result) {
         if (result.rows[0]) {
-          resolve(result.rows[0]);
+          var visit = result.rows[0];
+          delete visit.deleted_flag;
+          resolve(visit);
         } else {
           reject("no visit found");
         }

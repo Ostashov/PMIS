@@ -34,28 +34,28 @@ module.exports = {
   },
 
   getVisitById: function(req, res) {
-    Visit.findOne({ id: req })
-      .then(function(result) {
-        return res.status(200).json(result);
-      })
-      .catch(function(err) {
-        return res.status(400).json({
-          message: err
+    return new Promise(function(resolve, reject) {
+      Visit.findOne({ id: req })
+        .then(function(result) {
+          resolve(result);
+        })
+        .catch(function(err) {
+          reject(err);
         });
-      });
+    });
   },
 
   getSpecialistByVisitId: function(req, res) {
-    Visit.getSpecialist({ id: req })
-      .then(function(result) {
-        return res.status(200).json(result);
-      })
-      .catch(function(err) {
-        console.log(err);
-        return res.status(400).json({
-          message: err
+    return new Promise(function(resolve, reject) {
+      Visit.getSpecialist({ id: req })
+        .then(function(result) {
+          resolve(result);
+        })
+        .catch(function(err) {
+          console.log(err);
+          reject(err);
         });
-      });
+    });
   },
 
   listVisits: function() {

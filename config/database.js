@@ -17,6 +17,8 @@ module.exports = {
         client.query(text, values, function(err, result) {
           done();
           if (err) {
+            console.log(err);
+            console.log(text);
             handleErrorMessages(err)
               .then(function(message) {
                 console.log("Query error");

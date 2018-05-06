@@ -18,6 +18,8 @@ router.get("/", function(req, res) {
   });
 });
 
+// /register ////////////////////////////////////////
+
 router.get("/register", (req, res) => {
   if (req.session.userId || req.session.userLogin) {
     res.redirect("/");
@@ -34,6 +36,8 @@ router.post("/register", (req, res) => {
   }
 });
 
+// /signin ////////////////////////////////////////////
+
 router.get("/signin", (req, res) => {
   if (req.session.userId || req.session.userLogin) {
     res.redirect("/");
@@ -45,6 +49,8 @@ router.post("/signin", (req, res) => {
   res.render("signin");
   // console.log(req.body);
 });
+
+// /visit //////////////////////////////////////////////////
 
 router.get("/visit", (req, res) => {
   if (!(req.session.userId || req.session.userLogin)) {
@@ -97,33 +103,74 @@ router.post("/visit", (req, res) => {
 });
 
 router.get("/visit:visitId", (req, res) => {
-  var specialist = {};
   var visitId = req.params.visitId.substring(1);
   if (!(req.session.userId || req.session.userLogin)) {
     res.redirect("/");
   } else {
-    // specialist = visitsController.getSpecialistByVisitId(visitId);
-  }
-  if (specialist) {
-    if ((specialist.id = req.session.userId)) {
-      console.log(JSON.stringify(specialist));
-      res.render("particularVisit", {
-        visit: {
-          id: visitId
-        },
-        user: {
-          id: req.session.userId,
-          email: req.session.userLogin
+    var renderData = {
+      user: {
+        id: req.session.userId,
+        email: req.session.userLogin
+      }
+    };
+    visitsController
+      .getSpecialistByVisitId(visitId) // get full data about the specialist
+      .then(function(result) {
+        renderData.specialist = result;
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+      .done(function() {
+        if ((renderData.specialist.id = req.session.userId)) {
+          visitsController
+            .getVisitById(visitId) // get full data about the visit
+            .then(function(result) {
+              renderData.visit = result;
+            })
+            .catch(function(err) {
+              console.log(err);
+            })
+            .done(function() {
+              patientsController
+                .getPatientById(renderData.visit.patient_id) // get full data about the patient
+                .then(function(result) {
+                  renderData.patient = result;
+                })
+                .catch(function(err) {
+                  console.log(err);
+                })
+                .done(function() {
+                  // console.log(renderData);
+                  res.render("particularVisit", renderData);
+                });
+            });
+        } else {
+          res.redirect("/");
         }
       });
-    } else {
-      res.render("particularVisit", {
-        user: {
-          id: req.session.userId,
-          email: req.session.userLogin
-        }
-      });
-    }
+    // .done(function() {
+    //   if ((specialist.id = req.session.userId)) {
+    //     // console.log(JSON.stringify(specialist));
+    //     res.render("particularVisit", {
+    //       visit: {
+    //         id: visitId
+    //       },
+    //       specialist: specialist,
+    //       user: {
+    //         id: req.session.userId,
+    //         email: req.session.userLogin
+    //       }
+    //     });
+    //   } else {
+    //     res.render("particularVisit", {
+    //       user: {
+    //         id: req.session.userId,
+    //         email: req.session.userLogin
+    //       }
+    //     });
+    //   }
+    // });
   }
 });
 
