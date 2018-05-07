@@ -12,16 +12,18 @@ $("#finish-visit-btn").click(function() {
 });
 
 $("#delete-visit-btn").click(function() {
-  var visitId = $(this).data("visitId");
-  $.ajax({
-    url: "./api/visits:" + visitId + "/delete",
-    type: "POST",
-    data: { id: visitId },
-    success: function(result) {
-      window.location.href = "/visit";
-    },
-    dataType: "json"
-  });
+  if (window.confirm("Вы действительно хотите отменить приём?")) {
+    var visitId = $(this).data("visitId");
+    $.ajax({
+      url: "./api/visits:" + visitId + "/delete",
+      type: "POST",
+      data: { id: visitId },
+      success: function(result) {
+        window.location.href = "/visit";
+      },
+      dataType: "json"
+    });
+  }
 });
 
 $(document).on("click", ".sidebar-left .nav-item", function() {
