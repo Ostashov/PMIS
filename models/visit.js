@@ -66,7 +66,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "INSERT INTO visits (specialist_id, patient_id, start_dttm, end_dtt, deleted_flag, isFirst) VALUES ($1, $2, $3, $4, $5, $6) returning id",
+          "INSERT INTO visits (specialist_id, patient_id, start_dttm, end_dttm, deleted_flag, isFirst) VALUES ($1, $2, $3, $4, $5, $6) returning id",
           [
             data.specialistId,
             data.patientId,
@@ -94,6 +94,22 @@ module.exports = {
         )
         .then(function(result) {
           resolve(result.rows[0]);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+  },
+
+  findAllBySpecialistId: function(id, number) {
+    return new Promise(function(resolve, reject) {
+      db
+        .query(
+          "select visits.id, visits.specialist_id, visits.patient_id, patients.lastname, patients.firstname, patients.middlename, visits.start_dttm, visits.end_dttm from visits inner join patients ON visits.patient_id = patients.id AND patients.deleted_flag = false inner join users ON visits.specialist_id = users.id AND users.deleted_flag = false WHERE visits.specialist_id = $1 AND visits.deleted_flag = false ORDER BY visits.id DESC LIMIT $2",
+          [id, number || "ALL"]
+        )
+        .then(function(results) {
+          resolve(results.rows);
         })
         .catch(function(err) {
           reject(err);

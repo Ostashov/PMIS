@@ -68,5 +68,19 @@ module.exports = {
           reject(err);
         });
     });
+  },
+
+  getTenBySpecialistId: function(req, res) {
+    var specialist_id = req.params.specialistId.substring(1);
+
+    Visit.findAllBySpecialistId(specialist_id, 10)
+      .then(function(results) {
+        return res.status(200).json(results);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
   }
 };

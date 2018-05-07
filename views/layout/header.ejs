@@ -30,6 +30,7 @@
         <% if (user.id) { %>
           <b><%= user.email %></b>
           <a href="/logout" class="btn btn-light" ><i class="fas fa-sign-out-alt"></i></a>
+          <input type="text" id="user-id__" value="<%= user.id%>" hidden>
         <% } else {%>
         <a href="/register" class="btn btn-link" >
             Регистрация

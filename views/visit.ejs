@@ -103,20 +103,18 @@
               </div>
             </div>
             <!-- End of Modal -->
-            <div class="listOfPatients col-md-6">
-              <div class="card">
-                <div class="card-header" id="listOfPatientsTitle">Список пациентов</div>
+            <div class=" col-md-6">
+              <div class="listOfPatients card" style="display: none;">
+                <div class="card-header" id="listOfPatientsTitle">Список найденных пациентов</div>
                 <div class="card-body">
                   <ul id="listOfPatients" >
-                    <% listOfPatients.forEach(function(patient){ %>
-                    <li >
-                      <%= patient.lastname %> <%= patient.firstname %> <% if (patient.middlename) {%> <%= patient.middlename %> <%} %> </br>
-                      <%= new Date(Date.parse(patient.birthdate)).getFullYear(); %> г.р.
-                    </li>
-                    <br>
-                    <% }); %>
+                    
                   </ul>
                 </div>
+              </div>
+              <div class="listOfVisits card">
+                <div class="card-header">Последние приёмы</div>
+                <div class="card-body">...</div>
               </div>
             </div>
           </div>

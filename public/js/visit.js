@@ -71,7 +71,7 @@ $("#startFirstVisitButton").click(function() {
     data: newPatientData,
     success: function(data) {
       newVisitData.patientId = data.id;
-      alert(JSON.stringify(newVisitData));
+      // alert(JSON.stringify(newVisitData));
       $.ajax({
         url: "./api/users/getSelf",
         type: "POST",
@@ -112,6 +112,12 @@ $(".searchPatientForm input").keypress(function(e) {
   }
 });
 
+$(document).on("click", ".choose-visit-btn", function() {
+  var btn = $(this);
+  var visitId = btn.data("visitId");
+  window.location.href = "/visit:" + visitId;
+});
+
 $(document).on("click", ".choosePatientBadge", function() {
   var badge = $(this);
   var newVisitData = {
@@ -134,7 +140,7 @@ $(document).on("click", ".choosePatientBadge", function() {
 });
 
 function startNewVisit(visitData) {
-  alert(JSON.stringify(visitData));
+  // alert(JSON.stringify(visitData));
   $.ajax({
     url: "./api/visit/new",
     type: "POST",
@@ -165,14 +171,26 @@ function getCurrentDateTime() {
   return clickDttm;
 }
 
+$(document).ready(function() {
+  var specialist_id = $("#user-id__").val();
+  $.ajax({
+    url: "./api/visits:" + specialist_id + "/getTen",
+    type: "POST",
+    success: function(data) {
+      // console.log(data);
+      updateListOfVisits(data);
+    }
+  });
+});
+
 // VIEW //////////////////////////////
 
 function updateListOfPatients(data) {
   var ulPatients = $("#listOfPatients");
   ulPatients.html("");
-  $("#listOfPatientsTitle").text("Список найденных пациентов");
+  // $("#listOfPatientsTitle").text("Список найденных пациентов");
   data.forEach(function(patient) {
-    console.info(patient);
+    // console.info(patient);
     ulPatients.append(
       "<li>" +
         patient.lastname +
@@ -187,6 +205,54 @@ function updateListOfPatients(data) {
         "</li>"
     );
   });
+  $("div.listOfPatients").show("fast");
+}
+
+function updateListOfVisits(data) {
+  if (data[0]) {
+    $(".listOfVisits .card-body").html("<ul id='listOfVisits' ></ul>");
+    var ulVisits = $("#listOfVisits");
+    // ulPatients.html("");
+    // $("#listOfPatientsTitle").text("Список найденных пациентов");
+    data.forEach(function(visit) {
+      // console.info(visit);
+      ulVisits.append(liVisit(visit));
+    });
+  } else {
+    $(".listOfVisits .card-body").html("Не создано ни одного приёма");
+  }
+}
+
+function liVisit(visit) {
+  if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) {
+    return (
+      "<li>" +
+      visit.lastname +
+      " " +
+      visit.firstname +
+      " " +
+      visit.middlename +
+      " <span class='badge badge-success'>Окончен</span></br>" +
+      "<button class='choose-visit-btn btn btn-info btn-sm' data-visit-id='" +
+      visit.id +
+      "'>Посмотреть</button>" +
+      "</li>"
+    );
+  } else {
+    return (
+      "<li>" +
+      visit.lastname +
+      " " +
+      visit.firstname +
+      " " +
+      visit.middlename +
+      " <span class='badge badge-danger'>Не окончен</span></br>" +
+      "<button class='choose-visit-btn btn btn-primary btn-sm' data-visit-id='" +
+      visit.id +
+      "'>Продолжить</button>" +
+      "</li>"
+    );
+  }
 }
 
 function choosePatientButton(id) {
