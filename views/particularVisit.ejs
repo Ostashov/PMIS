@@ -4,31 +4,56 @@
     <div class="container">
       <div class="content">
         <div class="visitHeader row">
-          <div >
-            <% if (visit.isfirst) { %>
-              <h3>Первичный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
-            <% } else { %>
-              <h3>Повторный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
+          <div class="col-md-12">
+            <div class="visit-title">
+              <% if (visit.isfirst) { %>
+                <h3>Первичный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
+              <% } else { %>
+                <h3>Повторный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
+              <% } %>
+              
+            </div>
+            <div class="back-link">
+              <a href="/visit" >Назад</a>
+            </div>
+            <div class="visit-time">
+              Начало: <%= new Date(Date.parse(visit.start_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.start_dttm)).getMinutes(); %>
+              <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) { %>
+              Конец: <%= new Date(Date.parse(visit.end_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.end_dttm)).getMinutes(); %>
+              <% } %>
+            </div>
+            <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() == 5999) { %>
+            <div class="delete-visit-btn-block">
+              <button class="btn btn-danger" id="delete-visit-btn" data-visit-id="<%= visit.id %>">Отменить приём</button>
+            </div>
             <% } %>
-            
           </div>
-          <div class="back-link">
-            <a href="/visit" >Назад</a>
-          </div>
-          <div class="visit-time">
-            Начало: <%= new Date(Date.parse(visit.start_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.start_dttm)).getMinutes(); %>
-            <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) { %>
-            Конец: <%= new Date(Date.parse(visit.end_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.end_dttm)).getMinutes(); %>
-            <% } %>
-          </div>
-          <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() == 5999) { %>
-          <div class="finish-visit-btn-block">
-            <button class="btn btn-danger" id="finish-visit-btn" data-visit-id="<%= visit.id %>">Завершить</button>
-          </div>
-          <% } %>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <nav class="col-md-3 sidebar sidebar-left">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item active">
+                  <span class="nav-link">Жалобы и анамнез заболевания</span>
+                </li>
+                <li class="nav-item">
+                  <span class="nav-link">Осмотр</span>
+                </li>
+                <li class="nav-item">
+                  <span class="nav-link">Диагноз</span>
+                </li>
+                <li class="nav-item">
+                  <span class="nav-link">Назначения</span>
+                </li>
+                <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() == 5999) { %>
+                <li class="nav-btn">
+                  <button class="btn btn-danger" id="finish-visit-btn" data-visit-id="<%= visit.id %>">Завершить приём</button>
+                </li>
+                <% } %>
+              </ul>
+            </div>
+          </nav>
+          <div class="col-md-9">
             <%= visit.id %> </br>
             <%= specialist.lastname %> <%= specialist.firstname %>
           </div>
@@ -39,4 +64,6 @@
   
   <script src="/js/visit.js" ></script>
   <script src="js/particularVisit.js"></script>
-<% include layout/footer.ejs %>
+</body>
+
+</html>

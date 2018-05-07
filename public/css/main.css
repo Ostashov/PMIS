@@ -25,10 +25,12 @@ header a.logo:visited {
   line-height: 2.5;
 }
 
+.visitHeader .visit-title,
 .visitHeader .back-link,
 .visitHeader .visit-time,
 .visitHeader .finish-visit-btn-block {
-  margin-left: 15px;
+  margin-right: 15px;
+  float: left;
 }
 
 .card {
@@ -46,4 +48,42 @@ header a.logo:visited {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   padding-bottom: 10px;
   margin-bottom: 15px;
+}
+
+/************ PARTICULAR VISIT ************/
+.sidebar-sticky {
+  height: calc(100vh - 50px - 43.25px - 10px);
+}
+
+nav.sidebar-left .sidebar-sticky {
+  /*background-color: rgba(0, 0, 0, 0.025);*/
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.nav .nav-item {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.125);
+}
+
+.nav-btn {
+  padding: 15px;
+  text-align: center;
+}
+
+.nav .nav-item.active {
+  background-color: rgba(0, 0, 0, 0.05);
+  /*border-bottom: 2px solid #007bff;*/
+  /*color: #007bff;*/
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+}
+
+.nav .nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 }

@@ -218,6 +218,9 @@ function updateListOfVisits(data) {
 }
 
 function liVisit(visit) {
+  var badge = visit.isfirst
+    ? "<span class='badge badge-secondary' title='Первичный приём' >1</span>"
+    : "";
   if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) {
     return (
       "<li>" +
@@ -226,12 +229,12 @@ function liVisit(visit) {
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-success'>Окончен</span> <span class='badge badge-secondary'>" +
-      (visit.isfirst ? "1" : "2") +
-      "</span></br>" +
+      " <span class='badge badge-success'>Окончен</span> " +
+      badge +
+      "</br>" +
       "<a href='/visit:" +
       visit.id +
-      "' class='btn btn-outline-primary btn-sm' >Посмотреть</a>" +
+      "' class='btn btn-outline-secondary btn-sm' >Посмотреть</a>" +
       "</li>"
     );
   } else {
@@ -242,14 +245,12 @@ function liVisit(visit) {
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-danger'>Не окончен</span> <span class='badge badge-secondary' title='" +
-      (visit.isfirst ? "Первичный приём" : "Повторный приём") +
-      "'>" +
-      (visit.isfirst ? "1" : "2") +
-      "</span></br>" +
+      " <span class='badge badge-danger'>Не окончен</span> " +
+      badge +
+      "</br>" +
       "<a href='/visit:" +
       visit.id +
-      "' class='btn btn-primary btn-sm' >Продолжить</a>" +
+      "' class='btn btn-outline-success btn-sm' >Продолжить</a>" +
       "</li>"
     );
   }
@@ -257,8 +258,8 @@ function liVisit(visit) {
 
 function choosePatientButton(id) {
   return (
-    " <span class='badge badge-success choosePatientBadge' data-patient-id='" +
+    " <button class='btn btn-outline-success btn-sm choosePatientBadge' data-patient-id='" +
     id +
-    "' >Начать приём</span>"
+    "' >Начать приём</button>"
   );
 }
