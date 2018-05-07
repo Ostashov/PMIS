@@ -99,7 +99,7 @@ $("#searchPatientButton").click(function() {
       }
     });
   } else {
-    console.error("Empty input");
+    alert("Введите фамилию");
   }
 });
 
@@ -110,12 +110,6 @@ $(".searchPatientForm input").keypress(function(e) {
     $("#searchPatientButton").click();
     return false;
   }
-});
-
-$(document).on("click", ".choose-visit-btn", function() {
-  var btn = $(this);
-  var visitId = btn.data("visitId");
-  window.location.href = "/visit:" + visitId;
 });
 
 $(document).on("click", ".choosePatientBadge", function() {
@@ -232,10 +226,12 @@ function liVisit(visit) {
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-success'>Окончен</span></br>" +
-      "<button class='choose-visit-btn btn btn-info btn-sm' data-visit-id='" +
+      " <span class='badge badge-success'>Окончен</span> <span class='badge badge-info'>" +
+      (visit.isfirst ? "1" : "2") +
+      "</span></br>" +
+      "<a href='/visit:" +
       visit.id +
-      "'>Посмотреть</button>" +
+      "' class='btn btn-outline-primary btn-sm' >Посмотреть</a>" +
       "</li>"
     );
   } else {
@@ -246,10 +242,14 @@ function liVisit(visit) {
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-danger'>Не окончен</span></br>" +
-      "<button class='choose-visit-btn btn btn-primary btn-sm' data-visit-id='" +
+      " <span class='badge badge-danger'>Не окончен</span> <span class='badge badge-secondary' title='" +
+      (visit.isfirst ? "Первичный приём" : "Повторный приём") +
+      "'>" +
+      (visit.isfirst ? "1" : "2") +
+      "</span></br>" +
+      "<a href='/visit:" +
       visit.id +
-      "'>Продолжить</button>" +
+      "' class='btn btn-primary btn-sm' >Продолжить</a>" +
       "</li>"
     );
   }

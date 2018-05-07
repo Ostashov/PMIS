@@ -5,7 +5,7 @@
       <div class="content">
         <div class="visitHeader">
           <div class="col-md-10">
-            <% if (visit.isFirst == true) { %>
+            <% if (visit.isfirst) { %>
               <h3>Первичный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
             <% } else { %>
               <h3>Повторный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
