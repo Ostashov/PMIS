@@ -25,6 +25,9 @@ $("#delete-visit-btn").click(function() {
 });
 
 $(document).on("click", ".sidebar-left .nav-item", function() {
+  var section = $(this).data("section");
   $(".sidebar-left .nav-item.active").toggleClass("active");
+  $(".visit-section.active").toggleClass("active");
+  $(".visit-content #" + section).toggleClass("active");
   $(this).toggleClass("active");
 });

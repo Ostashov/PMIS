@@ -87,3 +87,11 @@ nav.sidebar-left .sidebar-sticky {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
+
+.visit-section {
+  display: none;
+}
+
+.visit-section.active {
+  display: block;
+}

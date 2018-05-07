@@ -33,17 +33,17 @@
           <nav class="col-md-3 sidebar sidebar-left">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
-                <li class="nav-item active">
-                  <span class="nav-link">Жалобы и анамнез заболевания</span>
+                <li class="nav-item active" data-section="complaint">
+                  <span class="nav-link" >Жалобы и анамнез заболевания</span>
                 </li>
-                <li class="nav-item">
-                  <span class="nav-link">Осмотр</span>
+                <li class="nav-item" data-section="review" >
+                  <span class="nav-link" >Осмотр</span>
                 </li>
-                <li class="nav-item">
-                  <span class="nav-link">Диагноз</span>
+                <li class="nav-item" data-section="diagnosis" >
+                  <span class="nav-link" >Диагноз</span>
                 </li>
-                <li class="nav-item">
-                  <span class="nav-link">Назначения</span>
+                <li class="nav-item" data-section="prescriptions" >
+                  <span class="nav-link" >Назначения</span>
                 </li>
                 <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() == 5999) { %>
                 <li class="nav-btn">
@@ -53,9 +53,21 @@
               </ul>
             </div>
           </nav>
-          <div class="col-md-9">
-            <%= visit.id %> </br>
-            <%= specialist.lastname %> <%= specialist.firstname %>
+          <div class="visit-content col-md-9">
+            <div id="complaint" class="visit-section active">
+              Жалобы и анамнез
+            </div>
+            <div id="review" class="visit-section">
+              Осмотр
+            </div>
+            <div id="diagnosis" class="visit-section">
+              Диагноз
+            </div>
+            <div id="prescriptions" class="visit-section">
+              Назначения
+            </div>
+            <!--<%= visit.id %> </br>
+            <%= specialist.lastname %> <%= specialist.firstname %>-->
           </div>
         </div>
       </div>
