@@ -61,7 +61,7 @@ module.exports = {
       } else {
         db
           .query(
-            "SELECT * FROM users WHERE deleted_flag = false AND id IN (SELECT specialist_id FROM visits WHERE id = $1 AND deleted_flag = false)",
+            "SELECT * FROM users WHERE deleted_flag = false AND id IN (SELECT specialist_id FROM visits WHERE id = $1)",
             [data.id]
           )
           .then(function(results) {

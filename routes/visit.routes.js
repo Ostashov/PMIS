@@ -10,5 +10,6 @@ router.post(
 );
 
 router.post("/visits:visitId/finish", visitsController.finish);
+router.post("/visits:visitId/delete", visitsController.delete);
 
 module.exports = router;

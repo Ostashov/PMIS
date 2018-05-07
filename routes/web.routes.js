@@ -132,18 +132,22 @@ router.get("/visit:visitId", (req, res) => {
               console.log(err);
             })
             .done(function() {
-              patientsController
-                .getPatientById(renderData.visit.patient_id) // get full data about the patient
-                .then(function(result) {
-                  renderData.patient = result;
-                })
-                .catch(function(err) {
-                  console.log(err);
-                })
-                .done(function() {
-                  // console.log(renderData);
-                  res.render("particularVisit", renderData);
-                });
+              if (renderData.visit != undefined) {
+                patientsController
+                  .getPatientById(renderData.visit.patient_id) // get full data about the patient
+                  .then(function(result) {
+                    renderData.patient = result;
+                  })
+                  .catch(function(err) {
+                    console.log(err);
+                  })
+                  .done(function() {
+                    // console.log(renderData);
+                    res.render("particularVisit", renderData);
+                  });
+              } else {
+                res.redirect("/");
+              }
             });
         } else {
           res.redirect("/");

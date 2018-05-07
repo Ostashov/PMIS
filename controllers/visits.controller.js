@@ -19,8 +19,8 @@ module.exports = {
       });
   },
 
-  deleteVisit: function(req, res) {
-    Visit.delete({ id: req.params.id })
+  delete: function(req, res) {
+    Visit.delete(req.body)
       .then(function(result) {
         return res.status(200).json({
           message: "deleted visit with id: " + result.id
