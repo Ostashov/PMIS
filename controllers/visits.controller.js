@@ -82,5 +82,21 @@ module.exports = {
           message: err
         });
       });
+  },
+
+  finish: function(req, res) {
+    Visit.finish(req.body)
+      .then(function(result) {
+        return res.status(200).json({
+          message: "success! finished the visit",
+          id: result.id
+        });
+      })
+      .catch(function(err) {
+        console.log(err);
+        return res.status(400).json({
+          message: err
+        });
+      });
   }
 };

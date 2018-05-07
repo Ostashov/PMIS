@@ -9,4 +9,6 @@ router.post(
   visitsController.getTenBySpecialistId
 );
 
+router.post("/visits:visitId/finish", visitsController.finish);
+
 module.exports = router;

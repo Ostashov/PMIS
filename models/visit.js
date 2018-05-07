@@ -2,6 +2,24 @@ var Promise = require("promise");
 var config = require("./../config/config");
 var db = require("./../config/database");
 
+function getCurrentDateTime() {
+  var clickDttm = new Date();
+  // clickDttm = clickDttm.();
+  clickDttm =
+    clickDttm.getFullYear() +
+    "-" +
+    clickDttm.getMonth() +
+    "-" +
+    clickDttm.getDate() +
+    " " +
+    clickDttm.getHours() +
+    ":" +
+    clickDttm.getMinutes() +
+    ":" +
+    clickDttm.getSeconds();
+  return clickDttm;
+}
+
 module.exports = {
   findAll: function() {
     return new Promise(function(resolve, reject) {
@@ -92,6 +110,23 @@ module.exports = {
           "UPDATE visits SET deleted_flag = true WHERE id = $1 returning id",
           [data.id]
         )
+        .then(function(result) {
+          resolve(result.rows[0]);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+  },
+
+  finish: function(data) {
+    return new Promise(function(resolve, reject) {
+      var date = getCurrentDateTime();
+      db
+        .query("UPDATE visits SET end_dttm = $2 WHERE id=$1 returning id", [
+          data.id,
+          date
+        ])
         .then(function(result) {
           resolve(result.rows[0]);
         })

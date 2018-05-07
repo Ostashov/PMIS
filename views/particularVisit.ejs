@@ -3,19 +3,32 @@
   <div class="main">
     <div class="container">
       <div class="content">
-        <div class="visitHeader">
-          <div class="col-md-10">
+        <div class="visitHeader row">
+          <div >
             <% if (visit.isfirst) { %>
               <h3>Первичный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
             <% } else { %>
               <h3>Повторный приём <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
             <% } %>
+            
           </div>
-          <div class="col-md-2">
-            <a href="/visit" class="btn btn-link" >Назад</a>
+          <div class="back-link">
+            <a href="/visit" >Назад</a>
           </div>
+          <div class="visit-time">
+            Начало: <%= new Date(Date.parse(visit.start_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.start_dttm)).getMinutes(); %>
+            <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) { %>
+            Конец: <%= new Date(Date.parse(visit.end_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.end_dttm)).getMinutes(); %>
+            <% } %>
+          </div>
+          <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() == 5999) { %>
+          <div class="finish-visit-btn-block">
+            <button class="btn btn-danger" id="finish-visit-btn" data-visit-id="<%= visit.id %>">Завершить</button>
+          </div>
+          <% } %>
+        </div>
+        <div class="row">
           <div class="col-md-12">
-            Время начала: <%= new Date(Date.parse(visit.start_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.start_dttm)).getMinutes(); %> </br>
             <%= visit.id %> </br>
             <%= specialist.lastname %> <%= specialist.firstname %>
           </div>
@@ -25,4 +38,5 @@
   </div>
   
   <script src="/js/visit.js" ></script>
+  <script src="js/particularVisit.js"></script>
 <% include layout/footer.ejs %>

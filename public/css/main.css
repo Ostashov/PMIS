@@ -21,6 +21,16 @@ header a.logo:visited {
 
 /**** VISIT ****/
 
+.visitHeader {
+  line-height: 2.5;
+}
+
+.visitHeader .back-link,
+.visitHeader .visit-time,
+.visitHeader .finish-visit-btn-block {
+  margin-left: 15px;
+}
+
 .card {
   margin-bottom: 15px;
 }

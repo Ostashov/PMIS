@@ -3,119 +3,121 @@
   <div class="main">
     <div class="container">
       <div class="content">
-        <div class="col-md-12">
-          <h3>Приём пациента <span class="badge badge-primary">Выбор пациента</span></h3>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header">Поиск пациента</div>
-                <div class="card-body">
-                  <form class="searchPatientForm">
-                    <div class="form-row">
-                      <div class="form-group col-md-9">
-                        <label for="inputFindLastnamePatient">Фамилия</label>
-                        <input type="text" id="inputFindLastnamePatient" class="form-control" placeholder="Фамилия" autofocus>
-                      </div>
+        <div class="row">
+          <div class="col-md-10">
+            <h3>Приём пациента <span class="badge badge-primary">Выбор пациента</span></h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">Поиск пациента</div>
+              <div class="card-body">
+                <form class="searchPatientForm">
+                  <div class="form-row">
+                    <div class="form-group col-md-9">
+                      <label for="inputFindLastnamePatient">Фамилия</label>
+                      <input type="text" id="inputFindLastnamePatient" class="form-control" placeholder="Фамилия" autofocus>
                     </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="selectTypeOfDocument" >Тип документа</label>
+                      <select type="email" id="selectTypeOfDocument" class="form-control" name="documentType" disabled>
+                        <% listOfDocumentTypes.forEach(function(documentType){ %>
+                          <option value="<%= documentType.id %>"><%= documentType.title %></option>
+                        <% }); %>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-5">
+                      <label for="inputNumberOfDocument" >Номер документа</label>
+                      <input type="text" id="inputNumberOfDocument" class="form-control" placeholder="Номер документа" disabled>
+                    </div>
+                  </div>
+                  <button type="button" id="searchPatientButton" class="btn btn-success">Поиск</button>
+                  <button id="showAddPatientFormButton" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#addPatientFormCard" >Добавить нового пациента</button>
+                </form>
+              </div>
+            </div>
+            <div class="collapse" id="addPatientFormCard">
+              <div class="card" >
+                <div class="card-header">Добавление нового пациента</div>
+                <div class="card-body">
+                  <form id="addPatientForm" class="addPatientForm">
                     <div class="form-row">
                       <div class="form-group col-md-4">
-                        <label for="selectTypeOfDocument" >Тип документа</label>
-                        <select type="email" id="selectTypeOfDocument" class="form-control" name="documentType" disabled>
-                          <% listOfDocumentTypes.forEach(function(documentType){ %>
-                            <option value="<%= documentType.id %>"><%= documentType.title %></option>
-                          <% }); %>
-                        </select>
+                        <label for="inputAddPatientLastname" class="sr-only" >Фамилия</label>
+                        <input type="text" id="inputAddPatientLastname" class="form-control" name="lastname" placeholder="Фамилия" required>
                       </div>
-                      <div class="form-group col-md-5">
-                        <label for="inputNumberOfDocument" >Номер документа</label>
-                        <input type="text" id="inputNumberOfDocument" class="form-control" placeholder="Номер документа" disabled>
+                      <div class="form-group col-md-4">
+                        <label for="inputAddPatientFirstname" class="sr-only" >Имя</label>
+                        <input type="text" id="inputAddPatientFirstname" class="form-control" name="firstname" placeholder="Имя" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputAddPatientMiddlename" class="sr-only" >Отчество</label>
+                        <input type="text" id="inputAddPatientMiddlename" class="form-control" name="middlename" placeholder="Отчество" required>
                       </div>
                     </div>
-                    <button type="button" id="searchPatientButton" class="btn btn-success">Поиск</button>
-                    <button id="showAddPatientFormButton" class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#addPatientFormCard" >Добавить нового пациента</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                          <label for="addPatientBirthDay">День</label>
+                          <input type="text" id="addPatientBirthDay" class="form-control" name="birthday" placeholder="dd" required>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="addPatientBirthMonth">Месяц</label>
+                          <input type="text" id="addPatientBirthMonth" class="form-control" name="birthmonth" placeholder="mm" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label for="addPatientBirthYear">Год</label>
+                          <input type="text" id="addPatientBirthYear" class="form-control" name="birthyear" placeholder="yyyy" required>
+                        </div>
+                    </div>
+                    <small id="addPatientErrorBlock" class="form-text text-danger" style="display: none">
+                      Не все поля заполнены
+                    </small>
+                    <!--<button type="button" id="addPatientFormButton" class="btn btn-primary" data-toggle="modal" data-target="#addPatientCheckModal" >Начать приём</button>-->
+                    <button type="button" id="addPatientFormButton" class="btn btn-success" >Начать приём</button>
                   </form>
                 </div>
               </div>
-              <div class="collapse" id="addPatientFormCard">
-                <div class="card" >
-                  <div class="card-header">Добавление нового пациента</div>
-                  <div class="card-body">
-                    <form id="addPatientForm" class="addPatientForm">
-                      <div class="form-row">
-                        <div class="form-group col-md-4">
-                          <label for="inputAddPatientLastname" class="sr-only" >Фамилия</label>
-                          <input type="text" id="inputAddPatientLastname" class="form-control" name="lastname" placeholder="Фамилия" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputAddPatientFirstname" class="sr-only" >Имя</label>
-                          <input type="text" id="inputAddPatientFirstname" class="form-control" name="firstname" placeholder="Имя" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputAddPatientMiddlename" class="sr-only" >Отчество</label>
-                          <input type="text" id="inputAddPatientMiddlename" class="form-control" name="middlename" placeholder="Отчество" required>
-                        </div>
-                      </div>
-                      <div class="form-row">
-                          <div class="form-group col-md-2">
-                            <label for="addPatientBirthDay">День</label>
-                            <input type="text" id="addPatientBirthDay" class="form-control" name="birthday" placeholder="dd" required>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label for="addPatientBirthMonth">Месяц</label>
-                            <input type="text" id="addPatientBirthMonth" class="form-control" name="birthmonth" placeholder="mm" required>
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="addPatientBirthYear">Год</label>
-                            <input type="text" id="addPatientBirthYear" class="form-control" name="birthyear" placeholder="yyyy" required>
-                          </div>
-                      </div>
-                      <small id="addPatientErrorBlock" class="form-text text-danger" style="display: none">
-                        Не все поля заполнены
-                      </small>
-                      <!--<button type="button" id="addPatientFormButton" class="btn btn-primary" data-toggle="modal" data-target="#addPatientCheckModal" >Начать приём</button>-->
-                      <button type="button" id="addPatientFormButton" class="btn btn-success" >Начать приём</button>
-                    </form>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="addPatientCheckModal" tabindex="-1" role="dialog" aria-labelledby="addPatientCheckModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addPatientCheckModalLabel">Пожалуйста, проверьте данные</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
-                </div>
-              </div>
-              <!-- Modal -->
-              <div class="modal fade" id="addPatientCheckModal" tabindex="-1" role="dialog" aria-labelledby="addPatientCheckModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="addPatientCheckModalLabel">Пожалуйста, проверьте данные</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Имя: <span id="patientFirstnameCheckModal"></span></p>
-                      <p>Фамилия: <span id="patientLastnameCheckModal"></span></p>
-                      <p>Отчество: <span id="patientMiddlenameCheckModal"></span></p>
-                      <p>Дата рождения: <span id="patientBirthdateCheckModal"></span></p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Изменить</button>
-                      <button type="button" class="btn btn-success" id="startFirstVisitButton" >Начать первичный приём</button>
-                    </div>
+                  <div class="modal-body">
+                    <p>Имя: <span id="patientFirstnameCheckModal"></span></p>
+                    <p>Фамилия: <span id="patientLastnameCheckModal"></span></p>
+                    <p>Отчество: <span id="patientMiddlenameCheckModal"></span></p>
+                    <p>Дата рождения: <span id="patientBirthdateCheckModal"></span></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Изменить</button>
+                    <button type="button" class="btn btn-success" id="startFirstVisitButton" >Начать первичный приём</button>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End of Modal -->
-            <div class=" col-md-6">
-              <div class="listOfPatients card" style="display: none;">
-                <div class="card-header" id="listOfPatientsTitle">Список найденных пациентов</div>
-                <div class="card-body">
-                  <ul id="listOfPatients" >
-                    
-                  </ul>
-                </div>
+          </div>
+          <!-- End of Modal -->
+          <div class=" col-md-6">
+            <div class="listOfPatients card" style="display: none;">
+              <div class="card-header" id="listOfPatientsTitle">Список найденных пациентов</div>
+              <div class="card-body">
+                <ul id="listOfPatients" >
+                  
+                </ul>
               </div>
-              <div class="listOfVisits card">
-                <div class="card-header">Последние приёмы</div>
-                <div class="card-body">...</div>
-              </div>
+            </div>
+            <div class="listOfVisits card">
+              <div class="card-header">Последние приёмы</div>
+              <div class="card-body">...</div>
             </div>
           </div>
         </div>
