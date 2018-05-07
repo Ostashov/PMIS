@@ -106,7 +106,7 @@ router.get("/visit:visitId", (req, res) => {
   var visitId = req.params.visitId.substring(1);
   if (!(req.session.userId || req.session.userLogin)) {
     res.redirect("/");
-  } else {
+  } else if (visitId) {
     var renderData = {
       user: {
         id: req.session.userId,
@@ -171,6 +171,8 @@ router.get("/visit:visitId", (req, res) => {
     //     });
     //   }
     // });
+  } else {
+    res.redirect("/");
   }
 });
 

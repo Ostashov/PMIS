@@ -226,7 +226,7 @@ function liVisit(visit) {
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-success'>Окончен</span> <span class='badge badge-info'>" +
+      " <span class='badge badge-success'>Окончен</span> <span class='badge badge-secondary'>" +
       (visit.isfirst ? "1" : "2") +
       "</span></br>" +
       "<a href='/visit:" +
