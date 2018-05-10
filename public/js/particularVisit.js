@@ -32,4 +32,20 @@ $(document).on("click", ".sidebar-left .nav-item", function() {
   $(".visit-section.active").toggleClass("active");
   $(".visit-content #" + section).toggleClass("active");
   $(this).toggleClass("active");
+  $(".sidebar-right .sidebar-sticky").removeClass("active");
+  if (section == "review") {
+    $(".sidebar-right .sidebar-sticky#review-sidebar").addClass("active");
+  } else if (section == "diagnosis") {
+    $(".sidebar-right .sidebar-sticky#diagnosis-sidebar").addClass("active");
+  } else if (section == "prescriptions") {
+    $(".sidebar-right .sidebar-sticky#prescriptions-sidebar").addClass(
+      "active"
+    );
+  }
+});
+
+$(document).on("click", ".next-visit-section-btn", function() {
+  var btn = $(this);
+  var nextSection = btn.data("next");
+  $(".nav-item[data-section=" + nextSection + "]").click();
 });

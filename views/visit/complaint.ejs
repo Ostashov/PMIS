@@ -1,0 +1,29 @@
+<form id="complaint-from">
+  <h6 class="form-section-title">Жалобы</h6>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="complaint-textarea"></label>
+      <textarea class="form-control" name="" id="complaint-textarea" rows="5"></textarea>
+    </div>
+  </div>
+  <h6 class="form-section-title">Анамнез</h6>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="anamnesis-duration" >Болеет в течение</label>
+      <input type="text" id="anamnesis-duration" class="form-control" placeholder="введите число от 0">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="anamnesis-duration-dimension-select" >Период</label>
+      <select class="form-control" name="anamnesis-duration-dimension" id="anamnesis-duration-dimension-select">
+        <option selected>Выберите</option>
+        <option value="day">день</option>
+        <option value="month">месяц</option>
+        <option value="year">год</option>
+      </select>
+    </div>
+    <div class="form-group col-md-12">
+      <textarea class="form-control" name="" id="anamnesis-textarea" rows="5"></textarea>
+    </div>
+  </div>
+  <button class="btn btn-success next-visit-section-btn" type="button" data-next="review">Далее</button>
+</form>

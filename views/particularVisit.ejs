@@ -29,7 +29,7 @@
             <% } %>
           </div>
         </div>
-        <div class="row">
+        <div class="main-content row">
           <nav class="col-md-3 sidebar sidebar-left">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
@@ -53,22 +53,33 @@
               </ul>
             </div>
           </nav>
-          <div class="visit-content col-md-9">
+          <div class="visit-content col-md-6">
             <div id="complaint" class="visit-section active">
-              Жалобы и анамнез
+              <% include visit/complaint.ejs %>
             </div>
             <div id="review" class="visit-section">
-              Осмотр
+              <% include visit/review.ejs %>
             </div>
             <div id="diagnosis" class="visit-section">
-              Диагноз
+              <% include visit/diagnosis.ejs %>
             </div>
             <div id="prescriptions" class="visit-section">
-              Назначения
+              <% include visit/prescriptions.ejs %>
             </div>
             <!--<%= visit.id %> </br>
             <%= specialist.lastname %> <%= specialist.firstname %>-->
           </div>
+          <nav class="col-md-3 sidebar sidebar-right">
+            <div class="sidebar-sticky" id="review-sidebar">
+              <% include visit/review-sidebar.ejs %>
+            </div>
+            <div class="sidebar-sticky" id="diagnosis-sidebar">
+              <% include visit/diagnosis-sidebar.ejs %>
+            </div>
+            <div class="sidebar-sticky" id="prescriptions-sidebar">
+              <% include visit/prescriptions-sidebar.ejs %>
+            </div>
+          </nav>
         </div>
       </div>
     </div>
