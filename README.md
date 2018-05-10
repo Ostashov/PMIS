@@ -19,3 +19,4 @@ PostgreSQL is used and storage is located on elephantsql.com
 * https://www.codementor.io/emjay/how-to-build-a-simple-session-based-authentication-system-with-nodejs-from-scratch-6vn67mcy3
 * https://github.com/anthonynsimon/node-postgres-registration
 * http://blog.rukomoynikov.ru/avtorizatsiya-polzovatelej-express-js-mongo/
+* http://docplayer.ru/29128980-Konsolidirovannyy-polzovatelskiy-interfeys-emias-elektronnaya-medicinskaya-karta.html

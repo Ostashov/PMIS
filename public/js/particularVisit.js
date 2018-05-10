@@ -44,6 +44,12 @@ $(document).on("click", ".sidebar-left .nav-item", function() {
   }
 });
 
+$(document).on("click", ".sidebar-right .nav-item", function() {
+  var section = $(this).data("section");
+  // $(".sidebar-right .nav-item").removeClass("active");
+  $(this).toggleClass("active");
+});
+
 $(document).on("click", ".next-visit-section-btn", function() {
   var btn = $(this);
   var nextSection = btn.data("next");
