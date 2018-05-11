@@ -53,6 +53,8 @@ $(document).on("click", ".sidebar-right .nav-item .nav-subtitle", function() {
 $(document).on("click", ".next-visit-section-btn", function() {
   var btn = $(this);
   var nextSection = btn.data("next");
+  var form = $(this).prev();
+  alert(form.serialize());
   $(".nav-item[data-section=" + nextSection + "]").click();
 });
 
