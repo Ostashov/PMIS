@@ -32,7 +32,7 @@ $(document).on("click", ".sidebar-left .nav-item", function() {
   $(".visit-section.active").toggleClass("active");
   $(".visit-content #" + section).toggleClass("active");
   $(this).toggleClass("active");
-  $(".sidebar-right .sidebar-sticky").removeClass("active");
+  $(".sidebar-right .active").removeClass("active");
   if (section == "review") {
     $(".sidebar-right .sidebar-sticky#review-sidebar").addClass("active");
   } else if (section == "diagnosis") {
@@ -44,14 +44,36 @@ $(document).on("click", ".sidebar-left .nav-item", function() {
   }
 });
 
-$(document).on("click", ".sidebar-right .nav-item", function() {
-  var section = $(this).data("section");
-  // $(".sidebar-right .nav-item").removeClass("active");
-  $(this).toggleClass("active");
+$(document).on("click", ".sidebar-right .nav-item .nav-subtitle", function() {
+  $(this)
+    .parent()
+    .toggleClass("active");
 });
 
 $(document).on("click", ".next-visit-section-btn", function() {
   var btn = $(this);
   var nextSection = btn.data("next");
   $(".nav-item[data-section=" + nextSection + "]").click();
+});
+
+$(document).ready(function() {
+  $(document).on("click", ".sidebar-right .nav-subitem", function() {
+    var part = $(this).data("desc");
+    var formGroup = $(this)
+      .parent()
+      .parent()
+      .data("group");
+    var section = $(this)
+      .parent()
+      .parent()
+      .parent()
+      .data("section");
+    var form = $("#" + section + "-form");
+    var html = formGroups[part].html;
+    if (!$("#form-" + part).length) {
+      form.append(html);
+    } else {
+      alert("Уже добавлено");
+    }
+  });
 });
