@@ -122,17 +122,46 @@ module.exports = {
   finish: function(data) {
     return new Promise(function(resolve, reject) {
       var date = getCurrentDateTime();
-      db
-        .query("UPDATE visits SET end_dttm = $2 WHERE id=$1 returning id", [
-          data.id,
-          date
-        ])
-        .then(function(result) {
-          resolve(result.rows[0]);
-        })
-        .catch(function(err) {
-          reject(err);
-        });
+      // console.log(data.data);
+      data.data.forEach(function(field) {
+        if (field.value) {
+          console.log(field.name, field.value);
+          db
+            .query(
+              "INSERT INTO visitdata(visit_id, visitform_id, value)" +
+                "VALUES ($1, (SELECT id FROM visitform_dct WHERE name=$2), $3)",
+              [data.id, field.name, field.value]
+            )
+            .then(function(result) {
+              // console.log(result);
+            })
+            .catch(function(err) {
+              // console.log(err);
+              db
+                .query(
+                  "UPDATE visitdata SET value=$3 WHERE visit_id=$1 AND visitform_id=(SELECT id FROM visitform_dct WHERE name=$2)",
+                  [data.id, field.name, field.value]
+                )
+                .then(function(result) {
+                  // console.log(result);
+                })
+                .catch(function(err) {
+                  console.log(err);
+                });
+            });
+        }
+      });
+      // db
+      //   .query("UPDATE visits SET end_dttm = $2 WHERE id=$1 returning id", [
+      //     data.id,
+      //     date
+      //   ])
+      //   .then(function(result) {
+      //     resolve(result.rows[0]);
+      //   })
+      //   .catch(function(err) {
+      //     reject(err);
+      //   });
     });
   },
 

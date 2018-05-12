@@ -1,9 +1,14 @@
 $("#finish-visit-btn").click(function() {
   var visitId = $(this).data("visitId");
+  var data = $(":input").serializeArray(); // serializing of all forms
+  console.log(data);
   $.ajax({
     url: "./api/visits:" + visitId + "/finish",
     type: "POST",
-    data: { id: visitId },
+    data: {
+      id: visitId,
+      data: data
+    },
     success: function(result) {
       window.location.href = "/visit";
     },

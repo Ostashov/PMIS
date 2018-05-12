@@ -17,12 +17,12 @@ module.exports = {
         client.query(text, values, function(err, result) {
           done();
           if (err) {
-            console.log(err);
-            console.log(text);
+            // console.log(err);
+            // console.log(text);
             handleErrorMessages(err)
               .then(function(message) {
-                console.log("Query error");
-                reject(message);
+                // console.log("Query error");
+                reject(err);
               })
               .catch(function() {
                 reject();
@@ -39,7 +39,7 @@ module.exports = {
 function handleErrorMessages(err) {
   return new Promise(function(resolve, reject) {
     if (err.code == "23505") {
-      err = "email already in use, please use a different one";
+      err = "The data exists";
     }
     if (err.code == "22P02") {
       err = "invalid user UUID";
