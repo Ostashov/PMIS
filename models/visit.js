@@ -151,17 +151,17 @@ module.exports = {
             });
         }
       });
-      // db
-      //   .query("UPDATE visits SET end_dttm = $2 WHERE id=$1 returning id", [
-      //     data.id,
-      //     date
-      //   ])
-      //   .then(function(result) {
-      //     resolve(result.rows[0]);
-      //   })
-      //   .catch(function(err) {
-      //     reject(err);
-      //   });
+      db
+        .query("UPDATE visits SET end_dttm = $2 WHERE id=$1 returning id", [
+          data.id,
+          date
+        ])
+        .then(function(result) {
+          resolve(result.rows[0]);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
     });
   },
 
