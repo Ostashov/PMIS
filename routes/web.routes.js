@@ -142,8 +142,15 @@ router.get("/visit:visitId", (req, res) => {
                     console.log(err);
                   })
                   .done(function() {
-                    // console.log(renderData);
-                    res.render("particularVisit", renderData);
+                    if (
+                      new Date(
+                        Date.parse(renderData.visit.end_dttm)
+                      ).getFullYear() == 5999
+                    ) {
+                      res.render("particularVisit", renderData);
+                    } else {
+                      res.render("visitReport", renderData);
+                    }
                   });
               } else {
                 res.redirect("/");

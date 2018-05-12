@@ -98,5 +98,18 @@ module.exports = {
           message: err
         });
       });
+  },
+
+  getVisitData: function(req, res) {
+    var visit_id = req.params.visitId.substring(1);
+    Visit.getData(visit_id)
+      .then(function(results) {
+        return res.status(200).json(results);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
   }
 };

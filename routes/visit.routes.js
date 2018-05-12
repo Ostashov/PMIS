@@ -11,5 +11,6 @@ router.post(
 
 router.post("/visits:visitId/finish", visitsController.finish);
 router.post("/visits:visitId/delete", visitsController.delete);
+router.post("/visits:visitId/report", visitsController.getVisitData);
 
 module.exports = router;

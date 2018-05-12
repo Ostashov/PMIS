@@ -125,6 +125,7 @@ module.exports = {
       // console.log(data.data);
       data.data.forEach(function(field) {
         if (field.value) {
+          // if input is not empty
           console.log(field.name, field.value);
           db
             .query(
@@ -136,6 +137,7 @@ module.exports = {
               // console.log(result);
             })
             .catch(function(err) {
+              // if not inserted, then update
               // console.log(err);
               db
                 .query(
@@ -171,6 +173,22 @@ module.exports = {
         .query(
           "select visits.id, visits.specialist_id, visits.patient_id, patients.lastname, patients.firstname, patients.middlename, visits.start_dttm, visits.end_dttm, visits.isfirst from visits inner join patients ON visits.patient_id = patients.id AND patients.deleted_flag = false inner join users ON visits.specialist_id = users.id AND users.deleted_flag = false WHERE visits.specialist_id = $1 AND visits.deleted_flag = false ORDER BY visits.id DESC LIMIT $2",
           [id, number || "ALL"]
+        )
+        .then(function(results) {
+          resolve(results.rows);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+  },
+
+  getData: function(visit_id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .query(
+          "SELECT vf.name, vf.description, vd.value FROM visitdata vd INNER JOIN visitform_dct vf ON vd.visitform_id = vf.id WHERE visit_id = $1",
+          [visit_id]
         )
         .then(function(results) {
           resolve(results.rows);
