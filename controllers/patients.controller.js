@@ -93,6 +93,18 @@ module.exports = {
       });
   },
 
+  getAllPatientsBySpecialist: function(req, res) {
+    Patient.findAllBySpecialist({ id: req.params.specialistId })
+      .then(function(result) {
+        return res.status(200).json(result);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
+  },
+
   listPatients: function() {
     return new Promise(function(resolve, reject) {
       Patient.findAll()

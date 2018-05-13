@@ -16,8 +16,16 @@ $(document).ready(function() {
 function showVisitData(data) {
   console.log(data);
   data.forEach(function(field) {
-    $("." + field.section + "-info div").append(
-      field.description + ": " + field.value + "<br>"
-    );
+    if (field.name == "anamnesisDuration") {
+      $("." + field.section + "-info div").append(
+        field.description + ": " + field.value + " "
+      );
+    } else if (field.name == "anamnesisDurationDimension") {
+      $("." + field.section + "-info div").append("(" + field.value + ")<br>");
+    } else {
+      $("." + field.section + "-info div").append(
+        field.description + ": " + field.value + "<br>"
+      );
+    }
   });
 }

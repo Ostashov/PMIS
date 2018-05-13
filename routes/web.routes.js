@@ -94,14 +94,6 @@ router.get("/visit", (req, res) => {
   }
 });
 
-router.post("/visit", (req, res) => {
-  if (!(req.session.userId || req.session.userLogin)) {
-    res.redirect("/");
-  } else {
-    res.render("visit");
-  }
-});
-
 router.get("/visit:visitId", (req, res) => {
   var visitId = req.params.visitId.substring(1);
   if (!(req.session.userId || req.session.userLogin)) {

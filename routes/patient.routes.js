@@ -5,5 +5,9 @@ var patientsController = require("./../controllers/patients.controller");
 router.post("/patient/new", patientsController.createPatient);
 
 router.post("/patients:lastname", patientsController.getPatientsByLastname);
+router.post(
+  "/patients:specialistId/getAllBySpecialist",
+  patientsController.getAllPatientsBySpecialist
+);
 
 module.exports = router;

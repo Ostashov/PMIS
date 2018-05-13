@@ -175,6 +175,14 @@ $(document).ready(function() {
       updateListOfVisits(data);
     }
   });
+  $.ajax({
+    url: "./api/patients:" + specialist_id + "/getAllBySpecialist",
+    type: "POST",
+    success: function(data) {
+      // console.log(data);
+      updateListOfAllPatients(data);
+    }
+  });
 });
 
 // VIEW //////////////////////////////
@@ -200,6 +208,28 @@ function updateListOfPatients(data) {
     );
   });
   $("div.listOfPatients").show("fast");
+}
+
+function updateListOfAllPatients(data) {
+  var ulPatients = $("#listOfAllPatients");
+  ulPatients.html("");
+  // $("#listOfPatientsTitle").text("Список найденных пациентов");
+  data.forEach(function(patient) {
+    // console.info(patient);
+    ulPatients.append(
+      "<li>" +
+        patient.lastname +
+        " " +
+        patient.firstname +
+        " " +
+        patient.middlename +
+        // choosePatientButton(patient.id) +
+        "</br>" +
+        new Date(Date.parse(patient.birthdate)).getFullYear() +
+        " г.р." +
+        "</li>"
+    );
+  });
 }
 
 function updateListOfVisits(data) {
@@ -234,7 +264,7 @@ function liVisit(visit) {
       "</br>" +
       "<a href='/visit:" +
       visit.id +
-      "' class='btn btn-outline-secondary btn-sm' target='_blank' >Посмотреть</a>" +
+      "' class='btn btn-outline-secondary btn-sm' target='_blank' >Посмотреть отчёт</a>" +
       "</li>"
     );
   } else {
@@ -250,7 +280,7 @@ function liVisit(visit) {
       "</br>" +
       "<a href='/visit:" +
       visit.id +
-      "' class='btn btn-outline-success btn-sm' >Продолжить</a>" +
+      "' class='btn btn-outline-success btn-sm' >Продолжить приём</a>" +
       "</li>"
     );
   }
