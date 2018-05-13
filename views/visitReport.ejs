@@ -22,29 +22,33 @@
       <div class="content">
         <input id="visit-id-hidden" data-id="<%= visit.id %>" disabled hidden>
         <div class="row general-info">
-          <div class="col-md-5">
+          <div class="col-md-6">
             Дата приёма: <%= new Date(Date.parse(visit.end_dttm)).getDate(); %>.<%= ('0' + (new Date(Date.parse(visit.end_dttm)).getMonth() + 1)).slice(-2); %>.<%= new Date(Date.parse(visit.end_dttm)).getFullYear(); %> <br>
             Пациент: <b><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></b> <br>
             Врач: <%= specialist.lastname %> <%= specialist.firstname %>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-6">
             Общая информация <br>
             Тип приёма: <%= visit.isfirst ? 'первичный' : 'повторный' %>
           </div>
         </div>
-        <div class="row main-info">
+        <div class="row complaint-info">
+          <div class="col-md-12">
+          </div>
+        </div>
+        <div class="row review-info">
           <div class="col-md-12">
             <span class="section-title">Общий осмотр:</span><br>
           </div>
         </div>
-        <div class="row diagnosis-info" hidden>
+        <div class="row diagnosis-info" >
           <div class="col-md-12">
-            Диагноз: <br>
+            <span class="section-title">Диагноз:</span><br>
           </div>
         </div>
-        <div class="row prescriptions-info" hidden>
+        <div class="row prescriptions-info" >
           <div class="col-md-12">
-            Диагноз: <br>
+            <span class="section-title">Назначения:</span><br>
           </div>
         </div>
       </div>

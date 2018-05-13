@@ -14,9 +14,10 @@ $(document).ready(function() {
 });
 
 function showVisitData(data) {
-  var block = $(".main-info div");
   console.log(data);
   data.forEach(function(field) {
-    block.append(field.description + ": " + field.value + "<br>");
+    $("." + field.section + "-info div").append(
+      field.description + ": " + field.value + "<br>"
+    );
   });
 }
