@@ -187,7 +187,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT vf.name, vf.section, vf.description, vd.value FROM visitdata vd INNER JOIN visitform_dct vf ON vd.visitform_id = vf.id WHERE visit_id = $1 ORDER BY vf.section, vf.id",
+          "SELECT vf.name, vf.section, vf.description, vd.value FROM visitdata vd INNER JOIN visitform_dct vf ON vd.visitform_id = vf.id WHERE visit_id = $1 ORDER BY vf.section, vf.order",
           [visit_id]
         )
         .then(function(results) {

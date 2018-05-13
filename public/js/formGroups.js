@@ -83,5 +83,55 @@ var formGroups = {
       "</div>" +
       "</div>" +
       "</div>"
+  },
+  ONMK: {
+    html:
+      "<h6 class='form-section-title'>ОМНК</h6>" +
+      "<div class='form-row' id='form-ONMK'>" +
+      "<div class='form-group col-md-4'>" +
+      "<label for='sufferedStroke'>Перенесённый ОНМК</label>" +
+      "<div class='form-check'>" +
+      "<input class='form-check-input' type='radio' id='sufferedStrokeYes' name='sufferedStroke' value='Да' >" +
+      "<label class='form-check-label' for='sufferedStrokeYes'>Да</label>" +
+      "</div>" +
+      "<div class='form-check'>" +
+      "<input class='form-check-input' type='radio' id='sufferedStrokeNo' name='sufferedStroke' value='Нет' >" +
+      "<label class='form-check-label' for='sufferedStrokeNo'>Нет</label>" +
+      "</div>" +
+      "</div>" +
+      "<div class='form-group col-md-4'>" +
+      "<label for='numberStroke'>Количество ОНМК</label>" +
+      "<input class='form-control' id='numberStroke' name='numberStroke' >" +
+      "</div>" +
+      "<div class='form-group col-md-4'>" +
+      "<label for='typeStroke'>Тип ОНМК</label>" +
+      "<input class='form-control' id='typeStroke' name='typeStroke' >" +
+      "</div>" +
+      "<div class='form-group col-md-6'>" +
+      "<label for='dateStroke'>Дата последнего ОНМК</label>" +
+      "<input class='form-control' id='dateStroke' name='dateStroke' placeholder='дд.мм.гггг'>" +
+      "</div>" +
+      "</div>"
+  },
+  TIA: {
+    html:
+      "<h6 class='form-section-title'>ТИА</h6>" +
+      "<div class='form-row' id='form-TIA'>" +
+      "<div class='form-group col-md-6'>" +
+      "<label for='TIA'>Перенесённый ОНМК</label>" +
+      "<div class='form-check'>" +
+      "<input class='form-check-input' type='radio' id='TIAYes' name='TIA' value='Да' >" +
+      "<label class='form-check-label' for='TIAYes'>Да</label>" +
+      "</div>" +
+      "<div class='form-check'>" +
+      "<input class='form-check-input' type='radio' id='TIANo' name='TIA' value='Нет' >" +
+      "<label class='form-check-label' for='TIANo'>Нет</label>" +
+      "</div>" +
+      "</div>" +
+      "<div class='form-group col-md-6'>" +
+      "<label for='dateTIA'>Дата последней ТИА</label>" +
+      "<input class='form-control' id='dateTIA' name='dateTIA' placeholder='дд.мм.гггг'>" +
+      "</div>" +
+      "</div>"
   }
 };
