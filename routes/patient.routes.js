@@ -9,5 +9,6 @@ router.post(
   "/patients:specialistId/getAllBySpecialist",
   patientsController.getAllPatientsBySpecialist
 );
+router.post("/patients:patientId/getVisits", patientsController.getVisits);
 
 module.exports = router;

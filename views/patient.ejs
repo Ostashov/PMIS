@@ -1,0 +1,44 @@
+<% include layout/header.ejs %>
+
+  <div class="main">
+    <div class="container">
+      <div class="content">
+        <input id="patient-id-hidden" data-id="<%= patient.id %>" disabled hidden>
+        <div class="pageHeader row">
+          <div class="col-md-12">
+            <div class="page-title">
+              <h3>Профиль пациента <span class="badge badge-primary"><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></span></h3>
+            </div>
+            <div class="back-link col-md-2">
+                <a href="/visit" >Назад</a>
+            </div>
+          </div>
+        </div>
+        <div class="main-content row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">Последние приёмы</div>
+              <div class="card-body">
+                <ul id="list-of-visits" class="listOfVisits">
+                  Загрузка...
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">Основная информация</div>
+              <div class="card-body">
+                Дата рождения: <%= ('0' + new Date(Date.parse(patient.birthdate)).getDate()).slice(-2); %>.<%= ('0' + (new Date(Date.parse(patient.birthdate)).getMonth() + 1)).slice(-2); %>.<%= new Date(Date.parse(patient.birthdate)).getFullYear(); %><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="js/patient.js" ></script>
+</body>
+
+</html>

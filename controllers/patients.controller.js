@@ -115,5 +115,17 @@ module.exports = {
           reject(err);
         });
     });
+  },
+
+  getVisits: function(req, res) {
+    Patient.getVisitsByPatientId({ id: req.params.patientId })
+      .then(function(result) {
+        return res.status(200).json(result);
+      })
+      .catch(function(err) {
+        return res.status(400).json({
+          message: err
+        });
+      });
   }
 };

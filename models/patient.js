@@ -55,6 +55,31 @@ module.exports = {
     });
   },
 
+  getVisitsByPatientId: function(data) {
+    return new Promise(function(resolve, reject) {
+      db
+        .query(
+          "SELECT v.id, u.id AS specialist_id, p.lastname AS patient_lastname, p.firstname AS patient_firstname, v.start_dttm, v.end_dttm, u.lastname AS specialist_lastname, u.firstname AS specialist_firstname " +
+            "FROM visits v " +
+            "INNER JOIN users u " +
+            "ON v.specialist_id = u.id " +
+            "INNER JOIN patients p " +
+            "ON p.id = v.patient_id " +
+            "WHERE v.patient_id=$1 " +
+            "AND v.deleted_flag=false " +
+            "ORDER BY v.start_dttm DESC",
+          [data.id.toLowerCase().substring(1)]
+        )
+        .then(function(results) {
+          resolve(results.rows);
+        })
+        .catch(function(err) {
+          console.log(err);
+          reject(err);
+        });
+    });
+  },
+
   findOne: function(data) {
     return new Promise(function(resolve, reject) {
       if (!data.id) {

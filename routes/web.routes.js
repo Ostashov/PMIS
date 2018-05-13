@@ -152,28 +152,35 @@ router.get("/visit:visitId", (req, res) => {
           res.redirect("/");
         }
       });
-    // .done(function() {
-    //   if ((specialist.id = req.session.userId)) {
-    //     // console.log(JSON.stringify(specialist));
-    //     res.render("particularVisit", {
-    //       visit: {
-    //         id: visitId
-    //       },
-    //       specialist: specialist,
-    //       user: {
-    //         id: req.session.userId,
-    //         email: req.session.userLogin
-    //       }
-    //     });
-    //   } else {
-    //     res.render("particularVisit", {
-    //       user: {
-    //         id: req.session.userId,
-    //         email: req.session.userLogin
-    //       }
-    //     });
-    //   }
-    // });
+  } else {
+    res.redirect("/");
+  }
+});
+
+// /patient //////////////////////////////////////////////////
+
+router.get("/patient:patientId", function(req, res) {
+  var patientId = req.params.patientId.substring(1);
+  if (!(req.session.userId || req.session.userLogin)) {
+    res.redirect("/");
+  } else if (patientId) {
+    var renderData = {
+      user: {
+        id: req.session.userId,
+        email: req.session.userLogin
+      }
+    };
+    patientsController
+      .getPatientById(patientId) // get full data about the patient
+      .then(function(result) {
+        renderData.patient = result;
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+      .done(function() {
+        res.render("patient", renderData);
+      });
   } else {
     res.redirect("/");
   }

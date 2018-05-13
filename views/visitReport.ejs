@@ -23,7 +23,7 @@
         <input id="visit-id-hidden" data-id="<%= visit.id %>" disabled hidden>
         <div class="row general-info">
           <div class="col-md-6">
-            Дата приёма: <%= new Date(Date.parse(visit.end_dttm)).getDate(); %>.<%= ('0' + (new Date(Date.parse(visit.end_dttm)).getMonth() + 1)).slice(-2); %>.<%= new Date(Date.parse(visit.end_dttm)).getFullYear(); %> <br>
+            Дата приёма: <%= ('0' + new Date(Date.parse(visit.end_dttm)).getDate()).slice(-2); %>.<%= ('0' + (new Date(Date.parse(visit.end_dttm)).getMonth() + 1)).slice(-2); %>.<%= new Date(Date.parse(visit.end_dttm)).getFullYear(); %> <br>
             Пациент: <b><%= patient.lastname %> <%= patient.firstname %> <%= patient.middlename %></b> <br>
             Врач: <%= specialist.lastname %> <%= specialist.firstname %>
           </div>

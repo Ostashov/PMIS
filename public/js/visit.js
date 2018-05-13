@@ -194,12 +194,15 @@ function updateListOfPatients(data) {
   data.forEach(function(patient) {
     // console.info(patient);
     ulPatients.append(
-      "<li>" +
+      "<li><a href='/patient:" +
+        patient.id +
+        "' class='patient-link'>" +
         patient.lastname +
         " " +
         patient.firstname +
         " " +
         patient.middlename +
+        "</a>" +
         choosePatientButton(patient.id) +
         "</br>" +
         new Date(Date.parse(patient.birthdate)).getFullYear() +
@@ -217,14 +220,16 @@ function updateListOfAllPatients(data) {
   data.forEach(function(patient) {
     // console.info(patient);
     ulPatients.append(
-      "<li>" +
+      "<li><a href='/patient:" +
+        patient.id +
+        "' class='patient-link'>" +
         patient.lastname +
         " " +
         patient.firstname +
         " " +
         patient.middlename +
         // choosePatientButton(patient.id) +
-        "</br>" +
+        "</a></br>" +
         new Date(Date.parse(patient.birthdate)).getFullYear() +
         " г.р." +
         "</li>"
@@ -253,13 +258,15 @@ function liVisit(visit) {
     : "";
   if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) {
     return (
-      "<li>" +
+      "<li><a href='/patient:" +
+      visit.patient_id +
+      "' class='patient-link'>" +
       visit.lastname +
       " " +
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-success'>Окончен</span> " +
+      "</a> <span class='badge badge-success'>Окончен</span> " +
       badge +
       "</br>" +
       "<a href='/visit:" +
@@ -269,13 +276,15 @@ function liVisit(visit) {
     );
   } else {
     return (
-      "<li>" +
+      "<li><a href='/patient:" +
+      visit.patient_id +
+      "' class='patient-link'>" +
       visit.lastname +
       " " +
       visit.firstname +
       " " +
       visit.middlename +
-      " <span class='badge badge-danger'>Не окончен</span> " +
+      "</a> <span class='badge badge-danger'>Не окончен</span> " +
       badge +
       "</br>" +
       "<a href='/visit:" +
