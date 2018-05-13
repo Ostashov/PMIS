@@ -118,7 +118,7 @@ var formGroups = {
       "<h6 class='form-section-title'>ТИА</h6>" +
       "<div class='form-row' id='form-TIA'>" +
       "<div class='form-group col-md-6'>" +
-      "<label for='TIA'>Перенесённый ОНМК</label>" +
+      "<label for='TIA'>Перенесённая ТИА</label>" +
       "<div class='form-check'>" +
       "<input class='form-check-input' type='radio' id='TIAYes' name='TIA' value='Да' >" +
       "<label class='form-check-label' for='TIAYes'>Да</label>" +

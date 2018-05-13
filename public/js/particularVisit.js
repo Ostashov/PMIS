@@ -1,7 +1,7 @@
 $("#finish-visit-btn").click(function() {
   var visitId = $(this).data("visitId");
   var data = $(":input").serializeArray(); // serializing of all forms
-  console.log(data);
+  // console.log(data);
   $.ajax({
     url: "./api/visits:" + visitId + "/finish",
     type: "POST",
@@ -59,7 +59,7 @@ $(document).on("click", ".next-visit-section-btn", function() {
   var btn = $(this);
   var nextSection = btn.data("next");
   var form = $(this).prev();
-  alert(form.serialize());
+  // alert(form.serialize());
   $(".nav-item[data-section=" + nextSection + "]").click();
 });
 

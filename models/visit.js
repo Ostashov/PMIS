@@ -126,7 +126,7 @@ module.exports = {
       data.data.forEach(function(field) {
         if (field.value) {
           // if input is not empty
-          console.log(field.name, field.value);
+          // console.log(field.name, field.value);
           db
             .query(
               "INSERT INTO visitdata(visit_id, visitform_id, value)" +

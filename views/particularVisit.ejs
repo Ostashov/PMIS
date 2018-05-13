@@ -17,7 +17,7 @@
               <a href="/visit" >Назад</a>
             </div>
             <div class="visit-time">
-              Начало: <%= new Date(Date.parse(visit.start_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.start_dttm)).getMinutes(); %>
+              Начало: <%= ('0' + new Date(Date.parse(visit.start_dttm)).getHours()).slice(-2); %>:<%= ('0' + new Date(Date.parse(visit.start_dttm)).getMinutes()).slice(-2); %>
               <% if (new Date(Date.parse(visit.end_dttm)).getFullYear() != 5999) { %>
               Конец: <%= new Date(Date.parse(visit.end_dttm)).getHours(); %>:<%= new Date(Date.parse(visit.end_dttm)).getMinutes(); %>
               <% } %>
