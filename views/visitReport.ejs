@@ -29,7 +29,8 @@
           </div>
           <div class="col-md-6">
             Общая информация <br>
-            Тип приёма: <%= visit.isfirst ? 'первичный' : 'повторный' %>
+            Тип приёма: <%= visit.isfirst ? 'первичный' : 'повторный' %> <br>
+            <a href="#" id="download-report" class="no-print" data-id="<%= visit.id %>" >Скачать отчет (.csv)</a>
           </div>
         </div>
         <div class="row complaint-info">

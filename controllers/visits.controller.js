@@ -111,5 +111,39 @@ module.exports = {
           message: err
         });
       });
+  },
+
+  downloadReport: function(req, res) {
+    var visit_id = req.params.visitId.substring(1);
+    // console.log(visit_id);
+    var csv = "",
+      data = [["a", "b", "c"], ["d", "e", "f"]];
+
+    Visit.getReport(visit_id)
+      .then(function(results) {
+        return res.status(200).json(results);
+      })
+      .catch(function(err) {
+        console.log(err);
+        return res.status(400).json({
+          message: err
+        });
+      });
+
+    // res.statusCode = 200;
+    // res.setHeader("Content-Type", "text/csv; charset=Shift_JIS");
+
+    // data.forEach(function(item) {
+    //   item.forEach(function(field) {
+    //     // console.log(field);
+    //     csv += field.toString().replace(/\"/g, '""') + ";";
+    //   });
+    //   csv += "\r\n";
+    // });
+    // console.log(csv);
+    // res.write(csv);
+    // res.end();
+
+    // return res.csv([{ name: "joe", id: 1 }]);
   }
 };

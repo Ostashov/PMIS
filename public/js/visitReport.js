@@ -13,6 +13,22 @@ $(document).ready(function() {
   });
 });
 
+$("#download-report").click(function() {
+  var visitId = $(this).data("id");
+  alert("В разработке...");
+  // $.ajax({
+  //   url: "./api/visits:" + visitId + "/downloadReport",
+  //   type: "POST",
+  //   data: {
+  //     id: visitId
+  //   },
+  //   success: function(result) {
+  //     console.log(result);
+  //   },
+  //   dataType: "json"
+  // });
+});
+
 function showVisitData(data) {
   console.log(data);
   data.forEach(function(field) {

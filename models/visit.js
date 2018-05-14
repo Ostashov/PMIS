@@ -197,6 +197,24 @@ module.exports = {
           reject(err);
         });
     });
+  },
+
+  getReport: function(visit_id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .query(
+          // "COPY (select * from visitdata) TO '/tmp/aa.csv' DELIMITER ';' CSV HEADER;"
+          "COPY (select * from visitdata) TO STDOUT DELIMITER ';' CSV HEADER;"
+        )
+        .then(function(result) {
+          console.log(result);
+          resolve(result);
+        })
+        .catch(function(err) {
+          console.log(err);
+          reject(err);
+        });
+    });
   }
 };
 
