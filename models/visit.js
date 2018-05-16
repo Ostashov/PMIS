@@ -200,17 +200,43 @@ module.exports = {
   },
 
   getReport: function(visit_id) {
+    var values = {
+      visitId: visit_id,
+      delimiter: ";",
+      path: __dirname + "/temp/visitdata.csv"
+    };
+    var select =
+      "SELECT VD.visit_id, P.lastname, P.firstname, P.middlename, VF.name, VF.description, VD.value, V.start_dttm, V.end_dttm, U.lastname AS specialist_lastname, U.firstname AS specialist_firstname " +
+      "FROM visitdata vd " +
+      "INNER JOIN visitform_dct vf " +
+      "ON VD.visitform_id = VF.id " +
+      "INNER JOIN visits v " +
+      "ON V.id = VD.visit_id " +
+      "INNER JOIN users u " +
+      "ON U.id = V.specialist_id " +
+      "INNER JOIN patients p " +
+      "ON P.id = V.patient_id " +
+      "WHERE V.id=" +
+      values.visitId;
+    var queryString =
+      "COPY (" +
+      select +
+      ") TO '" +
+      values.path +
+      "' DELIMITER '" +
+      values.delimiter +
+      "' CSV HEADER;";
     return new Promise(function(resolve, reject) {
       db
         .query(
           // "COPY (select * from visitdata) TO '/tmp/aa.csv' DELIMITER ';' CSV HEADER;"
-          "COPY (select * from visitdata) TO STDOUT DELIMITER ';' CSV HEADER;"
+          queryString
         )
-        .then(function(result) {
-          console.log(result);
-          resolve(result);
+        .then(() => {
+          console.log("Successfully saved as:", values.path);
+          resolve(values.path);
         })
-        .catch(function(err) {
+        .catch(err => {
           console.log(err);
           reject(err);
         });
