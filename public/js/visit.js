@@ -271,7 +271,7 @@ function liVisit(visit) {
       "</br>" +
       "<a href='/visit:" +
       visit.id +
-      "' class='btn btn-outline-secondary btn-sm' target='_blank' >Посмотреть отчёт</a>" +
+      "' class='btn btn-outline-secondary btn-sm' target='_blank' >Посмотреть протокол</a>" +
       "</li>"
     );
   } else {

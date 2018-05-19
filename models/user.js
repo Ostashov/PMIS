@@ -202,7 +202,7 @@ module.exports = {
             );
           })
           .then(function(result) {
-            if (result.rows[0].login_attempts < 1000) {
+            if (result.rows[0].login_attempts < 20) {
               // TODO decrease the number
               return result.rows[0];
             } else {
