@@ -210,14 +210,15 @@ module.exports = {
       "FROM visitdata vd " +
       "INNER JOIN visitform_dct vf " +
       "ON VD.visitform_id = VF.id " +
+      "AND vd.visit_id=" +
+      values.visitId +
+      " " +
       "INNER JOIN visits v " +
       "ON V.id = VD.visit_id " +
       "INNER JOIN users u " +
       "ON U.id = V.specialist_id " +
       "INNER JOIN patients p " +
-      "ON P.id = V.patient_id " +
-      "WHERE V.id=" +
-      values.visitId;
+      "ON P.id = V.patient_id ";
     var queryString =
       "COPY (" +
       select +
