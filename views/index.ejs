@@ -4,12 +4,14 @@
     <div class="container">
       <div class="content">
         <div class="row">
+          <% if (!user.id) { %>
           <div class="col-md-12">
-            <div class="card border-info">
+            <div class="card">
               <div class="card-body">
-                Information and Analytical Treatment Management System is under construction.
+                Пожалуйста, <a href="/signin" >авторизуйтесь</a>.
               </div>
             </div>
+            <% }%>
           </div>
           <% if (user.id) { %>
           <div class="col-md-12">
@@ -18,7 +20,7 @@
           <% }%>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" hidden>
             <div class="card" style="margin-top: 15px;">
               <div class="card-header">Список всех пользователей</div>
               <div class="card-body">

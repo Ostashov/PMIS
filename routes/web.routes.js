@@ -114,42 +114,46 @@ router.get("/visit:visitId", (req, res) => {
         console.log(err);
       })
       .done(function() {
-        if ((renderData.specialist.id = req.session.userId)) {
-          visitsController
-            .getVisitById(visitId) // get full data about the visit
-            .then(function(result) {
-              renderData.visit = result;
-            })
-            .catch(function(err) {
-              console.log(err);
-            })
-            .done(function() {
-              if (renderData.visit != undefined) {
-                patientsController
-                  .getPatientById(renderData.visit.patient_id) // get full data about the patient
-                  .then(function(result) {
-                    renderData.patient = result;
-                  })
-                  .catch(function(err) {
-                    console.log(err);
-                  })
-                  .done(function() {
-                    if (
-                      new Date(
-                        Date.parse(renderData.visit.end_dttm)
-                      ).getFullYear() == 5999
-                    ) {
-                      res.render("particularVisit", renderData);
-                    } else {
-                      res.render("visitReport", renderData);
-                    }
-                  });
-              } else {
-                res.redirect("/");
-              }
-            });
+        if (renderData.specialist) {
+          if ((renderData.specialist.id = req.session.userId)) {
+            visitsController
+              .getVisitById(visitId) // get full data about the visit
+              .then(function(result) {
+                renderData.visit = result;
+              })
+              .catch(function(err) {
+                console.log(err);
+              })
+              .done(function() {
+                if (renderData.visit != undefined) {
+                  patientsController
+                    .getPatientById(renderData.visit.patient_id) // get full data about the patient
+                    .then(function(result) {
+                      renderData.patient = result;
+                    })
+                    .catch(function(err) {
+                      console.log(err);
+                    })
+                    .done(function() {
+                      if (
+                        new Date(
+                          Date.parse(renderData.visit.end_dttm)
+                        ).getFullYear() == 5999
+                      ) {
+                        res.render("particularVisit", renderData);
+                      } else {
+                        res.render("visitReport", renderData);
+                      }
+                    });
+                } else {
+                  res.redirect("/visit");
+                }
+              });
+          } else {
+            res.redirect("/visit");
+          }
         } else {
-          res.redirect("/");
+          res.redirect("/visit");
         }
       });
   } else {
