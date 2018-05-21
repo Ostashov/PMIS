@@ -42,7 +42,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       db
         .query(
-          "SELECT DISTINCT p.id, p.lastname, p.firstname, p.middlename, p.birthdate FROM patients p INNER JOIN visits v ON p.id = v.patient_id WHERE v.specialist_id=$1 AND p.deleted_flag=false ORDER BY p.lastname",
+          "SELECT DISTINCT p.id, p.lastname, p.firstname, p.middlename, p.birthdate FROM patients p INNER JOIN visits v ON p.id = v.patient_id WHERE v.specialist_id=$1 AND p.deleted_flag=false AND v.deleted_flag=false ORDER BY p.lastname",
           [data.id.toLowerCase().substring(1)]
         )
         .then(function(results) {
