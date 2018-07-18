@@ -1,7 +1,5 @@
 var Promise = require("promise");
-var config = require("./../config/config");
 var db = require("./../config/database");
-// const CryptoJS = require("crypto-js");
 
 module.exports = {
   findAll: function() {
@@ -131,86 +129,6 @@ module.exports = {
         .catch(function(err) {
           reject(err);
         });
-    });
-  },
-
-  updateFirstname: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET firstname = $2 WHERE id = $1 returning firstname",
-            [data.id, data.firstname]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateLastname: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET lastname = $2 WHERE id = $1 returning lastname",
-            [data.id, data.lastname]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateMiddlename: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET middlename = $2 WHERE id = $1 returning middlename",
-            [data.id, data.middlename]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
-    });
-  },
-
-  updateBirthdate: function(data) {
-    return new Promise(function(resolve, reject) {
-      if (!data.id) {
-        reject("error: id missing");
-      } else {
-        db
-          .query(
-            "UPDATE patients SET birthdate = $2 WHERE id = $1 returning birthdate",
-            [data.id, data.birthdate]
-          )
-          .then(function(result) {
-            resolve(result.rows[0]);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
     });
   }
 };

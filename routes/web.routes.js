@@ -4,8 +4,6 @@ var documentsController = require("./../controllers/documents.controller");
 var patientsController = require("./../controllers/patients.controller");
 var visitsController = require("./../controllers/visits.controller");
 
-// TODO
-// Browser client route here
 router.get("/", function(req, res) {
   usersController.listUsers(req, res).then(function(listOfUsers) {
     res.render("index", {
@@ -26,7 +24,7 @@ router.get("/register", (req, res) => {
   } else {
     res.render("register");
   }
-}); // res.send("Hello World! What\'s up!"))
+});
 router.post("/register", (req, res) => {
   if (req.session.userId || req.session.userLogin) {
     res.redirect("/");

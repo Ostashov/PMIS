@@ -1,10 +1,8 @@
 var Promise = require("promise");
-var config = require("./../config/config");
 var db = require("./../config/database");
 
 function getCurrentDateTime() {
   var clickDttm = new Date();
-  // clickDttm = clickDttm.();
   clickDttm =
     clickDttm.getFullYear() +
     "-" +
@@ -122,31 +120,23 @@ module.exports = {
   finish: function(data) {
     return new Promise(function(resolve, reject) {
       var date = getCurrentDateTime();
-      // console.log(data.data);
       data.data.forEach(function(field) {
         if (field.value) {
-          // if input is not empty
-          // console.log(field.name, field.value);
           db
             .query(
               "INSERT INTO visitdata(visit_id, visitform_id, value)" +
                 "VALUES ($1, (SELECT id FROM visitform_dct WHERE name=$2), $3)",
               [data.id, field.name, field.value]
             )
-            .then(function(result) {
-              // console.log(result);
-            })
+            .then(function(result) {})
             .catch(function(err) {
               // if not inserted, then update
-              // console.log(err);
               db
                 .query(
                   "UPDATE visitdata SET value=$3 WHERE visit_id=$1 AND visitform_id=(SELECT id FROM visitform_dct WHERE name=$2)",
                   [data.id, field.name, field.value]
                 )
-                .then(function(result) {
-                  // console.log(result);
-                })
+                .then(function(result) {})
                 .catch(function(err) {
                   console.log(err);
                 });
@@ -229,10 +219,7 @@ module.exports = {
       "' CSV HEADER;";
     return new Promise(function(resolve, reject) {
       db
-        .query(
-          // "COPY (select * from visitdata) TO '/tmp/aa.csv' DELIMITER ';' CSV HEADER;"
-          queryString
-        )
+        .query(queryString)
         .then(() => {
           console.log("Successfully saved as:", values.path);
           resolve(values.path);

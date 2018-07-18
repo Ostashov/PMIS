@@ -25,7 +25,7 @@ var initApp = function() {
 
   if (process.env.NODE_ENV == "production") {
     mongoose.connect(config.MONGO_URL);
-    // sessions
+    // sessions in production mode
     app.use(
       session({
         secret: config.SESSION_SECRET,
@@ -37,13 +37,13 @@ var initApp = function() {
       })
     );
   } else {
-    // sessions
+    // sessions in development mode
     app.use(
       session({
         secret: config.SESSION_SECRET,
         resave: true,
         saveUninitialized: false,
-        store: new FileStore()
+        store: new FileStore() // storing in the files
       })
     );
   }
