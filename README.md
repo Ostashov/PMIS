@@ -1,9 +1,11 @@
 # PMIS
 
+The structure of all tables is in structure.sql file.
+
 **Using technologies:**
-npm
-node.js
-express
+* npm
+* node.js
+* express
 * eslint
 * nodemon
 * body-parser
