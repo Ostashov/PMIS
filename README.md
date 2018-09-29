@@ -1,4 +1,4 @@
-# PMIS
+# Information System for a Medical Institution
 This project was developed during the work under my Bachelor's Thesis at Higher School of Economics in Moscow, Russia. The overall grade is 10/10.</br>
 
 You can find the info about my thesis [here](https://www.hse.ru/en/edu/vkr/219504083) and [download](http://lms.hse.ru/ap_service.php?getwork=1&guid=7931C542-D6D1-4B0A-9D1A-AF8218D58FCC) the full text (in Russian). The presentation is available [here](https://drive.google.com/open?id=1eSJ7QdTYZSX_eU1AO0TsVUYmfTJ4NFwQ).
